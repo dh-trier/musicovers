@@ -58,7 +58,7 @@ def get_featurematrix(coverdata):
     histmed = list(coverdata.loc[:,"histmed"])
     histstd = list(coverdata.loc[:,"histstd"])
     featurematrix = [[m,n,o] for m,n,o in zip(histmax, histmed, histstd)]
-    #print(featurematrix)
+    print("feature example:", featurematrix[0])
     return featurematrix
 
 
