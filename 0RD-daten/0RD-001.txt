@@ -1,0 +1,3 @@
+Purpose: Image data for testing 
+Size: 15 images
+Comment: 3 genres, 5 example files each

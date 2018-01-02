@@ -1,2 +1,7 @@
 # musicovers
-Repository for the collaborative project on classifying musical albums into genre based on their covers.
+
+Repository für das kollaborative Projekt zur Klassifikation von Albumcovers nach musikalischen Genres.
+
+## Repository-Struktur
+
+
