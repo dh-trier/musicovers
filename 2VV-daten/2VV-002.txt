@@ -1,0 +1,6 @@
+==1VV==
+sourcedata = 0RD-001
+targetdata = 2VV-002
+script = 1VV-002.py
+operations = resize images to 500x500 pixel AND greyscale transformation using Pillow
+timestamp = 2018-01-02_12-38-24
