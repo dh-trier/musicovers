@@ -23,9 +23,10 @@ Output is another folder with image files.
 # Parameters
 # ===============================
 
-workdir = "../musicovers"
+workdir = "/media/christof/data/repos/dh-trier/musicovers"
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-001")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-001")
+docfile = join(workdir, "2VV-daten", "2VV-001.txt")
 
 
 # ===============================
@@ -57,18 +58,17 @@ def get_timestamp():
     timestamp = re.sub(" ", "_", str(timestamp))
     timestamp = re.sub(":", "-", str(timestamp))
     timestamp, milisecs = timestamp.split(".")
-    #print(timestamp)
     return timestamp
 
 
-def write_doc(sourcedatafolder, targetdatafolder):
+def write_docfile(sourcedatafolder, targetdatafolder, docfile):
     operations = "operations = resize images to 500x500 pixel"
     sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder)))
     targetstring = "targetdata = " + str(os.path.basename(os.path.normpath(targetdatafolder)))
     scriptstring = "script = " + str(os.path.basename(__file__))
     timestamp = "timestamp = " + get_timestamp()
     doctext = "==1VV==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + timestamp + "\n" 
-    with open("1VV-001.txt", "w") as outfile:
+    with open(docfile, "w") as outfile:
         outfile.write(doctext)
 		
 
@@ -77,7 +77,7 @@ def write_doc(sourcedatafolder, targetdatafolder):
 # ===============================
 
 
-def main(sourcedatafolder, targetdatafolder):
+def main(sourcedatafolder, targetdatafolder, docfile):
     if not os.path.exists(targetdatafolder):
         os.makedirs(targetdatafolder)
     for file in glob.glob(sourcedatafolder + "/*"): 
@@ -85,7 +85,7 @@ def main(sourcedatafolder, targetdatafolder):
         image = load_image(file)
         image = transform_size(image)
         save_image(image, basename, targetdatafolder)
-    write_doc(sourcedatafolder, targetdatafolder)
+    write_docfile(sourcedatafolder, targetdatafolder, docfile)
 
-main(sourcedatafolder, targetdatafolder)
+main(sourcedatafolder, targetdatafolder, docfile)
 
