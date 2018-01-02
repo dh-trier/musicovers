@@ -1,0 +1,6 @@
+==7KL==
+sourcedata = 6FO-003.csv
+targetdata = XEV-004.svg
+script = 9EV-004.py
+operations = create a confusion matrix based on classifier results.
+timestamp = 2018-01-02_21-24-01

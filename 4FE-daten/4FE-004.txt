@@ -1,0 +1,6 @@
+==3FE==
+sourcedata = 2VV-004
+targetdata = 4FE-004.csv
+script = 3FE-004.py
+operations = get histogram indicator values from greyscale image
+timestamp = 2018-01-02_21-18-35
