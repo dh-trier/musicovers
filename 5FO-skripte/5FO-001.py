@@ -45,7 +45,6 @@ def load_data(sourcedatafile):
 	"""
 	with open(sourcedatafile, "r") as infile: 
 		data = pd.DataFrame.from_csv(infile, sep=";")
-		#print(data.head())
 		return data
 
 
@@ -56,15 +55,12 @@ def normalize_data(data):
 	"""
 	for column in ["histmax", "histmed", "histstd"]: 
 		data[column] = (data[column] - np.mean(data[column])) / np.std(data[column])
-		#print(data[column])	
 	return data
 
 
 def save_data(data, targetdatafile):
     with open(targetdatafile, "w") as outfile:
         data.to_csv(outfile, sep=";")
-
-
 
 
 # ===============================

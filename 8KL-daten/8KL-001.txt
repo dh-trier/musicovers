@@ -1,0 +1,6 @@
+==7KL==
+sourcedata = 6FO-001.csv
+targetdata = 8KL-001.csv
+script = 7KL-001.py
+operations = use a classifier on the feature and genre data.
+timestamp = 2018-01-02_13-59-52
