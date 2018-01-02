@@ -1,0 +1,6 @@
+==5FO==
+sourcedata = 4FE-002.csv
+targetdata = 6FO-001.csv
+script = 5FO-001.py
+operations = apply a z-score transformation to each histogram value.
+timestamp = 2018-01-02_13-43-09
