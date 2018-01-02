@@ -53,6 +53,10 @@ def save_image(image, basename, targetdatafolder):
         print("error for", basename, filename)
 
 
+# ===============================
+# Documentation functions
+# ===============================
+
 def get_timestamp(): 
     timestamp = datetime.datetime.now()
     timestamp = re.sub(" ", "_", str(timestamp))
