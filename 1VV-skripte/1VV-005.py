@@ -16,18 +16,18 @@ import time
 This script takes the raw album cover image data and prepares it for later analysis.
 Input is a folder with image files. 
 Output is another folder with image files. 
-Images are resized to 500 x 500 pixels.
+Images are converted to a specified color space.
 """
-
 
 # ===============================
 # Parameters
 # ===============================
 
 workdir = "/media/christof/data/repos/dh-trier/musicovers"
-sourcedatafolder = join(workdir, "0RD-daten", "0RD-001")
-targetdatafolder = join(workdir, "2VV-daten", "2VV-001")
-docfile = join(workdir, "2VV-daten", "2VV-001.txt")
+sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
+targetdatafolder = join(workdir, "2VV-daten", "2VV-006")
+docfile = join(workdir, "2VV-daten", "2VV-006.txt")
+color_space = "CMYK"  # RGB | CMYK
 
 
 # ===============================
@@ -35,19 +35,13 @@ docfile = join(workdir, "2VV-daten", "2VV-001.txt")
 # ===============================
 
 
-def load_image(file): 
-	image = Image.open(file)
-	return image
+def load_image(file):
+    image = Image.open(file)
+    image = image.convert(color_space)  # convert all images to the same color space
+    return image
 
-
-def transform_size(image): 
-	image = image.resize((500, 500))
-	return image
-	
-
-def save_image(image, basename, targetdatafolder): 
+def save_image(image, basename, targetdatafolder):
     filename = join(targetdatafolder, basename + ".jpg")
-    # image.save(filename, "JPEG")
     try:
         image.save(filename, "JPEG")
     except IOError:
@@ -58,7 +52,7 @@ def save_image(image, basename, targetdatafolder):
 # Documentation functions
 # ===============================
 
-def get_timestamp(): 
+def get_timestamp():
     timestamp = datetime.datetime.now()
     timestamp = re.sub(" ", "_", str(timestamp))
     timestamp = re.sub(":", "-", str(timestamp))
@@ -78,7 +72,7 @@ def read_previous_docfile():
 
 def write_docfile(sourcedatafolder, targetdatafolder, docfile):
     prevdoc = read_previous_docfile()
-    operations = "operations = resize images to 500x500 pixel"
+    operations = "operations = convert images to CMYK"
     sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder)))
     targetstring = "targetdata = " + str(os.path.basename(os.path.normpath(targetdatafolder)))
     scriptstring = "script = " + str(os.path.basename(__file__))
@@ -89,7 +83,7 @@ def write_docfile(sourcedatafolder, targetdatafolder, docfile):
               sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
-		
+
 
 # ===============================
 # Main
@@ -99,12 +93,12 @@ def write_docfile(sourcedatafolder, targetdatafolder, docfile):
 def main(sourcedatafolder, targetdatafolder, docfile):
     if not os.path.exists(targetdatafolder):
         os.makedirs(targetdatafolder)
-    for file in glob.glob(sourcedatafolder + "/*"): 
+    for file in glob.glob(sourcedatafolder + "/*"):
         basename, ext = os.path.basename(file).split(".")
         image = load_image(file)
-        image = transform_size(image)
         save_image(image, basename, targetdatafolder)
     write_docfile(sourcedatafolder, targetdatafolder, docfile)
+
 
 main(sourcedatafolder, targetdatafolder, docfile)
 

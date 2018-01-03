@@ -1,0 +1,8 @@
+==1VV==
+sourcedata = 0RD-003
+targetdata = 2VV-006
+script = 1VV-005.py
+operations = convert images to CMYK
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-03_22-49-10
