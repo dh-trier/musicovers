@@ -1,6 +1,8 @@
 ==9EV==
-sourcedata = 6FO-001.csv
-targetdata = XEV-001.svg
-script = 9EV-001.py
-operations = visualize the feature distribution.
-timestamp = 2018-01-02_14-07-32
+sourcedata = 6FO-001.csv // 4FE-002.csv // 2VV-002 // 0RD-001
+targetdata = XEV-001.svg // 6FO-001.csv // 4FE-002.csv // 2VV-002
+script = 9EV-001.py // 5FO-001.py // 3FE-002.py // 1VV-002.py
+operations = visualize the feature distribution. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND greyscale transformation using Pillow
+size = 15 images
+comment = 3 genres, 5 example files each
+timestamp = 2018-01-03_13-19-42

@@ -1,6 +1,8 @@
-==7KL==
-sourcedata = 6FO-003.csv
-targetdata = XEV-004.svg
-script = 9EV-004.py
-operations = create a confusion matrix based on classifier results.
-timestamp = 2018-01-02_21-24-01
+==9EV==
+sourcedata = 6FO-003.csv // 4FE-004.csv // 2VV-004 // 0RD-003
+targetdata = XEV-004.svg // 6FO-003.csv // 4FE-004.csv // 2VV-004
+script = 9EV-004.py // 5FO-003.py // 3FE-004.py // 1VV-004.py
+operations = create a confusion matrix based on classifier results. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND binarization of the image (== 1 bit per pixel) using Pillow
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-03_14-00-31

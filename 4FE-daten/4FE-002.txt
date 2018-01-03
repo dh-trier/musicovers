@@ -1,6 +1,8 @@
 ==3FE==
-sourcedata = 2VV-002
-targetdata = 4FE-002.csv
-script = 3FE-002.py
-operations = get histogram indicator values from greyscale image
-timestamp = 2018-01-02_12-40-10
+sourcedata = 2VV-002 // 0RD-001
+targetdata = 4FE-002.csv // 2VV-002
+script = 3FE-002.py // 1VV-002.py
+operations = get histogram indicator values from greyscale image // resize images to 500x500 pixel AND greyscale transformation using Pillow
+size = 15 images
+comment = 3 genres, 5 example files each
+timestamp = 2018-01-03_12-41-52

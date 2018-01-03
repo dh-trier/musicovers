@@ -3,4 +3,6 @@ sourcedata = 0RD-003
 targetdata = 2VV-004
 script = 1VV-004.py
 operations = resize images to 500x500 pixel AND binarization of the image (== 1 bit per pixel) using Pillow
-timestamp = 2018-01-02_20-27-13
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-03_12-35-07

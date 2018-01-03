@@ -93,14 +93,26 @@ def get_timestamp():
     timestamp, milisecs = timestamp.split(".")
     return timestamp
 
+def read_previous_docfile():
+    prevdocdict = {}
+    with open(sourcedatafolder + ".txt", "r") as prev:
+        lines = (line.strip().partition(' = ') for line in prev)
+        for cat, sep, con in lines:
+            if sep:
+                prevdocdict[cat] = con
+    return prevdocdict
 
 def write_docfile(sourcedatafolder, targetdatafile, docfile):
-    operations = "operations = get histogram indicator values from greyscale image"
-    sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder)))
-    targetstring = "targetdata = " + str(os.path.basename(targetdatafile))
-    scriptstring = "script = " + str(os.path.basename(__file__))
+    prevdoc = read_previous_docfile()
+    operations = "operations = get histogram indicator values from greyscale image" + " // " + prevdoc['operations']
+    sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder))) + " // " + prevdoc['sourcedata']
+    targetstring = "targetdata = " + str(os.path.basename(targetdatafile)) + " // " + prevdoc['targetdata']
+    scriptstring = "script = " + str(os.path.basename(__file__)) + " // " + prevdoc['script']
+    sizestring = "size = " + prevdoc['size']
+    commentstring = "comment = " + prevdoc['comment']
     timestamp = "timestamp = " + get_timestamp()
-    doctext = "==3FE==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + timestamp + "\n" 
+    doctext = "==3FE==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
+              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 		

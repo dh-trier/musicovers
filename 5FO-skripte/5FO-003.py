@@ -44,18 +44,19 @@ def load_data(sourcedatafile):
 	Load the CSV file as a pandas DataFrame.
 	"""
 	with open(sourcedatafile, "r") as infile: 
-		data = pd.DataFrame.from_csv(infile, sep=";")
+		data = pd.read_csv(infile, sep=";")
 		return data
 
 
-def normalize_data(data): 
-	"""
-	Perform a column-wise z-score transformation.
-	This is applied to the columns listed below.
-	"""
-	for column in ["histmax", "histmed", "histstd"]: 
-		data[column] = (data[column] - np.mean(data[column])) / np.std(data[column])
-	return data
+def normalize_data(data):
+    """
+    Perform a column-wise z-score transformation.
+    This is applied to the columns listed below.
+    """
+    for column in ["histmax", "histmed", "histstd"]:
+        if (np.std(data[column]) != 0):  # avoid division by zero
+            data[column] = (data[column] - np.mean(data[column])) / np.std(data[column])
+    return data
 
 
 def save_data(data, targetdatafile):
@@ -75,14 +76,26 @@ def get_timestamp():
     timestamp, milisecs = timestamp.split(".")
     return timestamp
 
+def read_previous_docfile():
+    prevdocdict = {}
+    with open(os.path.splitext(sourcedatafile)[0] + ".txt", "r") as prev:
+        lines = (line.strip().partition(' = ') for line in prev)
+        for cat, sep, con in lines:
+            if sep:
+                prevdocdict[cat] = con
+    return prevdocdict
 
 def write_docfile(sourcedatafile, targetdatafile, docfile):
-    operations = "operations = apply a z-score transformation to each histogram value."
-    sourcestring = "sourcedata = " + str(os.path.basename(sourcedatafile))
-    targetstring = "targetdata = " + str(os.path.basename(targetdatafile))
-    scriptstring = "script = " + str(os.path.basename(__file__))
+    prevdoc = read_previous_docfile()
+    operations = "operations = apply a z-score transformation to each histogram value." + " // " + prevdoc['operations']
+    sourcestring = "sourcedata = " + str(os.path.basename(sourcedatafile)) + " // " + prevdoc['sourcedata']
+    targetstring = "targetdata = " + str(os.path.basename(targetdatafile)) + " // " + prevdoc['targetdata']
+    scriptstring = "script = " + str(os.path.basename(__file__)) + " // " + prevdoc['script']
+    sizestring = "size = " + prevdoc['size']
+    commentstring = "comment = " + prevdoc['comment']
     timestamp = "timestamp = " + get_timestamp()
-    doctext = "==5FO==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + timestamp + "\n" 
+    doctext = "==5FO==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
+              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 		

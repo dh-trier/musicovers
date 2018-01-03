@@ -1,6 +1,8 @@
 ==5FO==
-sourcedata = 4FE-004.csv
-targetdata = 6FO-003.csv
-script = 5FO-003.py
-operations = apply a z-score transformation to each histogram value.
-timestamp = 2018-01-02_21-20-19
+sourcedata = 4FE-004.csv // 2VV-004 // 0RD-003
+targetdata = 6FO-003.csv // 4FE-004.csv // 2VV-004
+script = 5FO-003.py // 3FE-004.py // 1VV-004.py
+operations = apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND binarization of the image (== 1 bit per pixel) using Pillow
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-03_13-53-01

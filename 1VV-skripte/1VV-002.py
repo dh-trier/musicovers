@@ -70,14 +70,27 @@ def get_timestamp():
     timestamp, milisecs = timestamp.split(".")
     return timestamp
 
+def read_previous_docfile():
+    prevdocdict = {}
+    with open(sourcedatafolder + ".txt", "r") as prev:
+        lines = (line.strip().partition(' = ') for line in prev)
+        for cat, sep, con in lines:
+            if sep:
+                prevdocdict[cat] = con
+    return prevdocdict
+
 
 def write_docfile(sourcedatafolder, targetdatafolder, docfile):
+    prevdoc = read_previous_docfile()
     operations = "operations = resize images to 500x500 pixel AND greyscale transformation using Pillow"
     sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder)))
     targetstring = "targetdata = " + str(os.path.basename(os.path.normpath(targetdatafolder)))
     scriptstring = "script = " + str(os.path.basename(__file__))
+    sizestring = "size = " + prevdoc['size']
+    commentstring = "comment = " + prevdoc['comment']
     timestamp = "timestamp = " + get_timestamp()
-    doctext = "==1VV==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + timestamp + "\n" 
+    doctext = "==1VV==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
+              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 		

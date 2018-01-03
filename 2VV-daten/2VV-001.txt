@@ -3,4 +3,6 @@ sourcedata = 0RD-001
 targetdata = 2VV-001
 script = 1VV-001.py
 operations = resize images to 500x500 pixel
-timestamp = 2018-01-02_12-16-33
+size = 15 images
+comment = 3 genres, 5 example files each
+timestamp = 2018-01-03_12-27-41

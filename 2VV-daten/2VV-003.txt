@@ -3,4 +3,6 @@ sourcedata = 0RD-002
 targetdata = 2VV-003
 script = 1VV-003.py
 operations = resize images to 500x500 pixel AND greyscale transformation using Pillow
-timestamp = 2018-01-02_14-26-32
+size = 300 images
+comment = 3 genres, 100 example files each
+timestamp = 2018-01-03_12-30-21

@@ -23,7 +23,7 @@ Operations are resize to 500x500 pixels and binarization of the image (== 1 bit 
 # Parameters
 # ===============================
 
-workdir = "D:\\Daten\\Trier\\02 - WiSe 17-18\\04 - Praxis DH\\GitHub\\musicovers"
+workdir = "/media/christof/data/repos/dh-trier/musicovers"
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-004")
 docfile = join(workdir, "2VV-daten", "2VV-004.txt")
@@ -69,14 +69,26 @@ def get_timestamp():
     timestamp, milisecs = timestamp.split(".")
     return timestamp
 
+def read_previous_docfile():
+    prevdocdict = {}
+    with open(sourcedatafolder + ".txt", "r") as prev:
+        lines = (line.strip().partition(' = ') for line in prev)
+        for cat, sep, con in lines:  # category, separator, content
+            if sep:
+                prevdocdict[cat] = con
+    return prevdocdict
 
 def write_docfile(sourcedatafolder, targetdatafolder, docfile):
+    prevdoc = read_previous_docfile()
     operations = "operations = resize images to 500x500 pixel AND binarization of the image (== 1 bit per pixel) using Pillow"
     sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder)))
     targetstring = "targetdata = " + str(os.path.basename(os.path.normpath(targetdatafolder)))
     scriptstring = "script = " + str(os.path.basename(__file__))
+    sizestring = "size = " + prevdoc['size']
+    commentstring = "comment = " + prevdoc['comment']
     timestamp = "timestamp = " + get_timestamp()
-    doctext = "==1VV==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + timestamp + "\n"
+    doctext = "==1VV==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
+              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 

@@ -1,8 +1,8 @@
 ==7KL==
 sourcedata = 6FO-002.csv // 4FE-003.csv // 2VV-003 // 0RD-002
-targetdata = 8KL-002.csv // 6FO-002.csv // 4FE-003.csv // 2VV-003
-script = 7KL-002.py // 5FO-002.py // 3FE-003.py // 1VV-003.py
+targetdata = 8KL-003.csv // 6FO-002.csv // 4FE-003.csv // 2VV-003
+script = 7KL-003.py // 5FO-002.py // 3FE-003.py // 1VV-003.py
 operations = use the knn classifier on the feature and genre data. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND greyscale transformation using Pillow
 size = 300 images
 comment = 3 genres, 100 example files each
-timestamp = 2018-01-03_13-13-45
+timestamp = 2018-01-03_14-02-17

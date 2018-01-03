@@ -121,14 +121,26 @@ def get_timestamp():
     timestamp, milisecs = timestamp.split(".")
     return timestamp
 
+def read_previous_docfile():
+    prevdocdict = {}
+    with open(os.path.splitext(sourcedatafile)[0] + ".txt", "r") as prev:
+        lines = (line.strip().partition(' = ') for line in prev)
+        for cat, sep, con in lines:
+            if sep:
+                prevdocdict[cat] = con
+    return prevdocdict
 
 def write_docfile(sourcedatafile, targetdatafile, docfile):
-    operations = "operations = use the knn classifier on the feature and genre data."
-    sourcestring = "sourcedata = " + str(os.path.basename(sourcedatafile))
-    targetstring = "targetdata = " + str(os.path.basename(targetdatafile))
-    scriptstring = "script = " + str(os.path.basename(__file__))
+    prevdoc = read_previous_docfile()
+    operations = "operations = use the knn classifier on the feature and genre data." + " // " + prevdoc['operations']
+    sourcestring = "sourcedata = " + str(os.path.basename(sourcedatafile)) + " // " + prevdoc['sourcedata']
+    targetstring = "targetdata = " + str(os.path.basename(targetdatafile)) + " // " + prevdoc['targetdata']
+    scriptstring = "script = " + str(os.path.basename(__file__)) + " // " + prevdoc['script']
+    sizestring = "size = " + prevdoc['size']
+    commentstring = "comment = " + prevdoc['comment']
     timestamp = "timestamp = " + get_timestamp()
-    doctext = "==7KL==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + timestamp + "\n" 
+    doctext = "==7KL==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
+              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 
