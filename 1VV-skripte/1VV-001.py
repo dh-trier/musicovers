@@ -27,7 +27,6 @@ Images are resized to 500 x 500 pixels.
 
 # workdir = "/media/christof/data/repos/dh-trier/musicovers"
 current_dir = os.path.dirname(os.path.abspath(__file__))
-print(current_dir)
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-001")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-001")

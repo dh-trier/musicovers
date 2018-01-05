@@ -8,6 +8,7 @@ import glob
 import pandas as pd
 import numpy as np
 from os.path import join
+import os.path
 from PIL import Image
 import datetime
 import time
@@ -23,7 +24,8 @@ Images are converted to a specified color space.
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-006")
 docfile = join(workdir, "2VV-daten", "2VV-006.txt")

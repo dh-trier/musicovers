@@ -14,6 +14,7 @@ import glob
 import pandas as pd
 import numpy as np
 from os.path import join
+import os.path
 import datetime
 
 # specific
@@ -29,7 +30,8 @@ from sklearn.model_selection import train_test_split
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+workdir, tail = os.path.split(current_dir)
 sourcedatafile = join(workdir, "6FO-daten", "6FO-002.csv") 
 targetdatafile = join(workdir, "8KL-daten", "8KL-003.csv") 
 docfile = join(workdir, "8KL-daten", "8KL-003.txt")
