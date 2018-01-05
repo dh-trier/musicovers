@@ -24,7 +24,7 @@ Images are resized to 500 x 500 pixels.
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+workdir = "/home/anne/Dokumente/Master/Praxis_der_DH/musicovers"
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-001")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-001")
 docfile = join(workdir, "2VV-daten", "2VV-001.txt")
