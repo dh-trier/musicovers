@@ -8,7 +8,10 @@ import glob
 import pandas as pd
 import numpy as np
 from os.path import join
+import os.path
 import datetime
+from ast import literal_eval
+import sys
 
 # specific
 from sklearn.feature_extraction.text import CountVectorizer as CV
@@ -22,14 +25,49 @@ from sklearn import tree
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+workdir, tail = os.path.split(current_dir)
 sourcedatafile = join(workdir, "6FO-daten", "6FO-001.csv") 
 targetdatafile = join(workdir, "8KL-daten", "8KL-001.csv") 
 docfile = join(workdir, "8KL-daten", "8KL-001.txt")
 classifiertype = "svm" # neighbors|svm|tree
 
+# ======
+# Noch mehr Parameter
+# ======
+svm_kernel = "svm" # linear, poly, rbf
+n_neighbors = 5
+weights = "distance"
+n_cv = 2
+
+# =====
+# Parameter festsetzen:
+# möchte dict: 
+# classifier => svm | neighbors | tree 
+# n => int
+# svm_kernel => linear | poly | rbf
+# n_neighbors => int
+# weights => distance | uniform | 
+# =====
+
+if len(sys.argv) == 2:
+    params = sys.argv[1]
+    params = literal_eval(params)
+    classifiertype = params["classifier"]
+    n_cv = params["n"]
+    if classifiertype == "svm":
+        svm_kernel = params["svm_kernel"]
+    elif classifiertype == "neighbors":
+        n_neighbors = params["n_neighbors"]
+        weights = params["weights"]
 
 
+# =============
+# Vergleichstabelle:
+# =============
+cvs_file = 'compare_data_{}.csv'.format(classifiertype)
+outstr = 'n;mean_accuracy;std_of_accuracy\n'
+  
 # ===============================
 # Functions
 # ===============================
@@ -64,7 +102,7 @@ def get_featurematrix(data):
 
 
 
-def define_classifier(classifiertype): 
+def define_classifier(classifiertype, svm_kernel="linear", n_neighbors=5, weights="distance"): 
     """
     Select and define the type of classifier to be used for classification.
     neighbors: http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
@@ -73,9 +111,9 @@ def define_classifier(classifiertype):
     """
     print("classifier used:", classifiertype)
     if classifiertype == "svm": 
-        classifier = svm.SVC(kernel="linear") # linear|poly|rbf
+        classifier = svm.SVC(kernel=svm_kernel) # linear|poly|rbf
     if classifiertype == "neighbors": 
-        classifier = neighbors.KNeighborsClassifier(n_neighbors=5, weights="distance")
+        classifier = neighbors.KNeighborsClassifier(n_neighbors=n_neighbors, weights=weights)
     if classifiertype == "tree": 
         classifier = tree.DecisionTreeClassifier()
     return classifier
@@ -94,13 +132,13 @@ def perform_classification(featurematrix, genres, classifier):
         classifier, 
         featurematrix,
         genres,
-        cv=2,
+        cv=n_cv,
         scoring="accuracy")
     accuracy_mean = np.mean(accuracy)
     print("mean accuracy:", accuracy_mean)
     accuracy_std = np.std(accuracy)
     print("std of accuracy:", accuracy_std)
-    return accuracy_mean
+    return [accuracy_mean, accuracy_std]
 
 
 # ===============================
@@ -138,6 +176,11 @@ def write_docfile(sourcedatafile, targetdatafile, docfile):
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 
+def write_testfile():
+    cvs_file = 'compare_data_{}.csv'.format(classifiertype)
+    outstr = 'n;mean_accuracy;std_of_accuracy\n'
+
+
 
 # ===============================
 # Main
@@ -152,7 +195,7 @@ def main(sourcedatafile, targetdatafile, docfile, classifiertype):
     genres = get_metadata(data)
     featurematrix = get_featurematrix(	data)
     classifier = define_classifier(classifiertype)
-    perform_classification(featurematrix, genres, classifier)
+    accuracy_mean = perform_classification(featurematrix, genres, classifier)
     write_docfile(sourcedatafile, targetdatafile, docfile)
 
 main(sourcedatafile, targetdatafile, docfile, classifiertype)

@@ -9,6 +9,7 @@ import glob
 import pandas as pd
 import numpy as np
 from os.path import join
+import os.path
 import datetime
 
 # specific
@@ -28,7 +29,8 @@ Output is one CSV file with merged and optionally normalized features.
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+workdir, tail = os.path.split(current_dir)
 sourcedatafile = join(workdir, "4FE-daten", "4FE-003.csv")
 targetdatafile = join(workdir, "6FO-daten", "6FO-002.csv")
 docfile = join(workdir, "6FO-daten", "6FO-002.txt")

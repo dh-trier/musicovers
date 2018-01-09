@@ -9,6 +9,7 @@ import glob
 import pandas as pd
 import numpy as np
 from os.path import join
+import os.path
 import datetime
 
 # specific
@@ -28,7 +29,8 @@ Output is a CSV file with image features.
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "2VV-daten", "2VV-001")
 targetdatafile = join(workdir, "4FE-daten", "4FE-001.csv")
 docfile = join(workdir, "4FE-daten", "4FE-001.txt")
