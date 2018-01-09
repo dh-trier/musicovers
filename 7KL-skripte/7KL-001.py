@@ -65,8 +65,7 @@ if len(sys.argv) == 2:
 # =============
 # Vergleichstabelle:
 # =============
-cvs_file = 'compare_data_{}.csv'.format(classifiertype)
-outstr = 'n;mean_accuracy;std_of_accuracy\n'
+
   
 # ===============================
 # Functions
@@ -138,7 +137,7 @@ def perform_classification(featurematrix, genres, classifier):
     print("mean accuracy:", accuracy_mean)
     accuracy_std = np.std(accuracy)
     print("std of accuracy:", accuracy_std)
-    return [accuracy_mean, accuracy_std]
+    return accuracy_mean, accuracy_std
 
 
 # ===============================
@@ -176,9 +175,13 @@ def write_docfile(sourcedatafile, targetdatafile, docfile):
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
 
-def write_testfile():
-    cvs_file = 'compare_data_{}.csv'.format(classifiertype)
-    outstr = 'n;mean_accuracy;std_of_accuracy\n'
+# added by me:
+def write_testfile(n, am, acs):
+    csv_file = 'compare_data_{}.csv'.format(classifiertype)
+    outstr = '{0};{1};{2}\n'.format(n, am, acs)
+    with open(csv_file, 'a') as foo:
+        foo.write(outstr)
+
 
 
 
@@ -195,7 +198,9 @@ def main(sourcedatafile, targetdatafile, docfile, classifiertype):
     genres = get_metadata(data)
     featurematrix = get_featurematrix(	data)
     classifier = define_classifier(classifiertype)
-    accuracy_mean = perform_classification(featurematrix, genres, classifier)
+    accuracy_mean, accuracy_std = perform_classification(featurematrix, genres, classifier)
+    # print("Zeug", accuracy_mean, accuracy_std)
+    write_testfile(n_cv, accuracy_mean, accuracy_std)
     write_docfile(sourcedatafile, targetdatafile, docfile)
 
 main(sourcedatafile, targetdatafile, docfile, classifiertype)
