@@ -23,7 +23,8 @@ Operations are resize to 500x500 pixels and binarization of the image (== 1 bit 
 # Parameters
 # ===============================
 
-workdir = "/media/christof/data/repos/dh-trier/musicovers"
+current_dir = os.path.dirname(os.path.abspath(__file__))
+workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-004")
 docfile = join(workdir, "2VV-daten", "2VV-004.txt")
