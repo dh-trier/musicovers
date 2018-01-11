@@ -5,4 +5,4 @@ script = 7KL-001.py // 5FO-003.py // 3FE-004.py // 1VV-004.py
 operations = use a classifier on the feature and genre data. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND binarization of the image (== 1 bit per pixel) using Pillow
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-11_18-07-33
+timestamp = 2018-01-11_18-28-33

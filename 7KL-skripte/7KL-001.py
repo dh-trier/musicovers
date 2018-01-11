@@ -35,9 +35,9 @@ classifiertype = "svm" # neighbors|svm|tree
 # ======
 # Noch mehr Parameter
 # ======
-svm_kernel = "svm" # linear, poly, rbf
-n_neighbors = 5
-weights = "distance"
+svm_kernel = None # linear, poly, rbf
+n_neighbors = None
+weights = None
 n_cv = 2
 
 # =====
@@ -87,7 +87,7 @@ def get_metadata(data):
     From the data table, extract the list of genre labels. 
     """
     genres = list(data["genre"])
-    print("genres:", len(set(genres)), set(genres))
+    # print("genres:", len(set(genres)), set(genres))
     return genres
 
 
@@ -96,7 +96,7 @@ def get_featurematrix(data):
     histmed = list(data["histmed"])
     histstd = list(data["histstd"])
     featurematrix = [[m,n,o] for m,n,o in zip(histmax, histmed, histstd)]
-    print("feature example:", featurematrix[0])
+    # print("feature example:", featurematrix[0])
     return featurematrix
 
 
@@ -125,7 +125,7 @@ def perform_classification(featurematrix, genres, classifier):
     This does a n-fold cross-evaluation and reports mean accuracy across folds.   
     http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate
     """
-    print("majority baseline:", "0.33")
+    # print("majority baseline:", "0.33")
     results = []
     accuracy = ms.cross_val_score(
         classifier, 
@@ -134,9 +134,9 @@ def perform_classification(featurematrix, genres, classifier):
         cv=n_cv,
         scoring="accuracy")
     accuracy_mean = np.mean(accuracy)
-    print("mean accuracy:", accuracy_mean)
+    # print("mean accuracy:", accuracy_mean)
     accuracy_std = np.std(accuracy)
-    print("std of accuracy:", accuracy_std)
+    # print("std of accuracy:", accuracy_std)
     return accuracy_mean, accuracy_std
 
 
