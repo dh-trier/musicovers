@@ -27,7 +27,7 @@ from sklearn import tree
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafile = join(workdir, "6FO-daten", "6FO-001.csv") 
+sourcedatafile = join(workdir, "6FO-daten", "6FO-003.csv") 
 targetdatafile = join(workdir, "8KL-daten", "8KL-001.csv") 
 docfile = join(workdir, "8KL-daten", "8KL-001.txt")
 classifiertype = "svm" # neighbors|svm|tree
@@ -176,9 +176,14 @@ def write_docfile(sourcedatafile, targetdatafile, docfile):
         outfile.write(doctext)
 
 # added by me:
-def write_testfile(n, am, acs):
-    csv_file = 'compare_data_{}.csv'.format(classifiertype)
-    outstr = '{0};{1};{2}\n'.format(n, am, acs)
+def write_testfile(classifiername, n, am, acs):
+    csv_file = 'compare_data_{}.csv'.format(classifiername)
+    if classifiername == 'tree':
+        outstr = '{0};{1};{2}\n'.format(n, am*100, acs*100)
+    elif classifiername == 'svm':
+        outstr = '{0};{1};{2};{3}\n'.format(n, am*100, acs*100, svm_kernel)
+    elif classifiername == 'neighbors':
+        outstr = '{0};{1};{2};{3};{4}\n'.format(n, am*100, acs*100, n_neighbors, weights)
     with open(csv_file, 'a') as foo:
         foo.write(outstr)
 
@@ -200,7 +205,7 @@ def main(sourcedatafile, targetdatafile, docfile, classifiertype):
     classifier = define_classifier(classifiertype)
     accuracy_mean, accuracy_std = perform_classification(featurematrix, genres, classifier)
     # print("Zeug", accuracy_mean, accuracy_std)
-    write_testfile(n_cv, accuracy_mean, accuracy_std)
+    write_testfile(classifiertype, n_cv, accuracy_mean, accuracy_std)
     write_docfile(sourcedatafile, targetdatafile, docfile)
 
 main(sourcedatafile, targetdatafile, docfile, classifiertype)

@@ -1,8 +1,8 @@
 ==7KL==
-sourcedata = 6FO-001.csv // 4FE-002.csv // 2VV-002 // 0RD-001
-targetdata = 8KL-001.csv // 6FO-001.csv // 4FE-002.csv // 2VV-002
-script = 7KL-001.py // 5FO-001.py // 3FE-002.py // 1VV-002.py
-operations = use a classifier on the feature and genre data. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND greyscale transformation using Pillow
-size = 15 images
-comment = 3 genres, 5 example files each
-timestamp = 2018-01-09_15-51-34
+sourcedata = 6FO-003.csv // 4FE-004.csv // 2VV-004 // 0RD-003
+targetdata = 8KL-001.csv // 6FO-003.csv // 4FE-004.csv // 2VV-004
+script = 7KL-001.py // 5FO-003.py // 3FE-004.py // 1VV-004.py
+operations = use a classifier on the feature and genre data. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND binarization of the image (== 1 bit per pixel) using Pillow
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-11_18-07-33
