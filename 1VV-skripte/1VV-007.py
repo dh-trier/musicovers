@@ -5,7 +5,7 @@
 This script takes the raw album cover image data and prepares it for later analysis.
 Input is a folder with image files.
 Output is another folder with image files.
-Operations are resize to 500x500 pixels and greyscale transformation.
+Images are resized to 500 x 500 pixels AND converted to greyscale.
 """
 
 import re
@@ -27,9 +27,9 @@ import docfile
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "0RD-daten", "0RD-001")
-targetdatafolder = join(workdir, "2VV-daten", "2VV-002")
-documentationfile = join(workdir, "2VV-daten", "2VV-002.txt")
+sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
+targetdatafolder = join(workdir, "2VV-daten", "2VV-007")
+documentationfile = join(workdir, "2VV-daten", "2VV-007.txt")
 docstring = __doc__
 
 
@@ -38,12 +38,11 @@ docstring = __doc__
 # ===============================
 
 
-def load_image(file): 
-	image = Image.open(file)
-	return image
+def load_image(file):
+    image = Image.open(file)
+    return image
 
-
-def transform_size(image): 
+def transform_size(image):
 	image = image.resize((500, 500))
 	return image
 
@@ -52,10 +51,8 @@ def make_grayscale(image):
     image = image.convert("L")
     return image
 
-
-def save_image(image, basename, targetdatafolder): 
+def save_image(image, basename, targetdatafolder):
     filename = join(targetdatafolder, basename + ".jpg")
-    image.save(filename, "JPEG")
     try:
         image.save(filename, "JPEG")
     except IOError:
@@ -70,7 +67,7 @@ def save_image(image, basename, targetdatafolder):
 def main(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail):
     if not os.path.exists(targetdatafolder):
         os.makedirs(targetdatafolder)
-    for file in glob.glob(sourcedatafolder + "/*"): 
+    for file in glob.glob(sourcedatafolder + "/*"):
         basename, ext = os.path.basename(file).split(".")
         image = load_image(file)
         image = transform_size(image)

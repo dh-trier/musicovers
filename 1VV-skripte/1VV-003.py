@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Operations are resize to 500x500 pixels and greyscale transformation.
+"""
 
 import re
 import os
@@ -10,15 +16,9 @@ import numpy as np
 from os.path import join
 import os.path
 from PIL import Image
-import datetime
-import time
 
-"""
-This script takes the raw album cover image data and prepares it for later analysis.
-Input is a folder with image files. 
-Output is another folder with image files. 
-Operations are resize to 500x500 pixels and greyscale transformation.
-"""
+# same package
+import docfile
 
 
 # ===============================
@@ -29,7 +29,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-002")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-003")
-docfile = join(workdir, "2VV-daten", "2VV-003.txt")
+documentationfile = join(workdir, "2VV-daten", "2VV-003.txt")
+docstring = __doc__
 
 
 # ===============================
@@ -62,47 +63,11 @@ def save_image(image, basename, targetdatafolder):
 
 
 # ===============================
-# Documentation functions
-# ===============================
-
-def get_timestamp(): 
-    timestamp = datetime.datetime.now()
-    timestamp = re.sub(" ", "_", str(timestamp))
-    timestamp = re.sub(":", "-", str(timestamp))
-    timestamp, milisecs = timestamp.split(".")
-    return timestamp
-
-def read_previous_docfile():
-    prevdocdict = {}
-    with open(sourcedatafolder + ".txt", "r") as prev:
-        lines = (line.strip().partition(' = ') for line in prev)
-        for cat, sep, con in lines:
-            if sep:
-                prevdocdict[cat] = con
-    return prevdocdict
-
-
-def write_docfile(sourcedatafolder, targetdatafolder, docfile):
-    prevdoc = read_previous_docfile()
-    operations = "operations = resize images to 500x500 pixel AND greyscale transformation using Pillow"
-    sourcestring = "sourcedata = " + str(os.path.basename(os.path.normpath(sourcedatafolder)))
-    targetstring = "targetdata = " + str(os.path.basename(os.path.normpath(targetdatafolder)))
-    scriptstring = "script = " + str(os.path.basename(__file__))
-    sizestring = "size = " + prevdoc['size']
-    commentstring = "comment = " + prevdoc['comment']
-    timestamp = "timestamp = " + get_timestamp()
-    doctext = "==1VV==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
-              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
-    with open(docfile, "w") as outfile:
-        outfile.write(doctext)
-		
-
-# ===============================
 # Main
 # ===============================
 
 
-def main(sourcedatafolder, targetdatafolder, docfile):
+def main(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail):
     if not os.path.exists(targetdatafolder):
         os.makedirs(targetdatafolder)
     for file in glob.glob(sourcedatafolder + "/*"): 
@@ -111,7 +76,7 @@ def main(sourcedatafolder, targetdatafolder, docfile):
         image = transform_size(image)
         image = make_grayscale(image)
         save_image(image, basename, targetdatafolder)
-    write_docfile(sourcedatafolder, targetdatafolder, docfile)
+    docfile.write(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail, __file__)
 
-main(sourcedatafolder, targetdatafolder, docfile)
+main(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail)
 

@@ -1,8 +1,13 @@
 ==1VV==
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to CMYK color space.
+***
 sourcedata = 0RD-003
 targetdata = 2VV-006
-script = 1VV-005.py
-operations = convert images to CMYK
+script = 1VV-006.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-03_22-49-10
+timestamp = 2018-01-12_16-02-24

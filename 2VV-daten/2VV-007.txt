@@ -3,11 +3,11 @@
 This script takes the raw album cover image data and prepares it for later analysis.
 Input is a folder with image files.
 Output is another folder with image files.
-Operations are resize to 500x500 pixels and binarization of the image (== 1 bit per pixel).
+Images are resized to 500 x 500 pixels AND converted to greyscale.
 ***
 sourcedata = 0RD-003
-targetdata = 2VV-004
-script = 1VV-004.py
+targetdata = 2VV-007
+script = 1VV-007.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-12_15-35-10
+timestamp = 2018-01-12_15-40-29
