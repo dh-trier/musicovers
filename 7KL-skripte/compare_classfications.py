@@ -22,7 +22,7 @@ for method in ['svm', 'neighbors', 'tree']:
 print('\nBenutze Decision Trees...\n')
 # für jeden Tree mit verschiedenen n's etc. ausführen
 for i in range(2, 10):
-    command = 'python3 7KL-001.py "{\'classifier\': \'tree\', \'n\':'  + str(i) + '}"'
+    command = 'python3 7KL-001_save_data.py "{\'classifier\': \'tree\', \'n\':'  + str(i) + '}"'
     print('\n' + command + '\n')
     os.system(command)
     # für tree geht irgendwie nicht mehr
@@ -33,7 +33,7 @@ print('\nBenutze Support Vector Machines...\n')
 # Für SVM mit verschiedenen Kernels ausprobieren
 for kern in ['linear', 'poly', 'rbf']:
     for i in range(2, 10):
-        command = 'python3 7KL-001.py "{\'classifier\': \'svm\', \'n\':'  + str(i) + ', \'svm_kernel\': \'{}\''.format(kern) +'}"'
+        command = 'python3 7KL-001_save_data.py "{\'classifier\': \'svm\', \'n\':'  + str(i) + ', \'svm_kernel\': \'{}\''.format(kern) +'}"'
         print('\n' + command + '\n')
         os.system(command)
 
@@ -43,7 +43,7 @@ k_values = list(range(3, 10)) + list(range(10, 35, 5))
 for n in range(2, 10): # Anzahl der Lern/Test-Teilungen
     for k in k_values: # Anzahl der k neighbors
         for weight in ['distance', 'uniform']:
-            command = 'python3 7KL-001.py "{\'classifier\': \'neighbors\', \'n\':'  + str(n) + ', \'n_neighbors\': {}, \'weights\': \'{}\''.format(str(k), weight) +'}"'
+            command = 'python3 7KL-001_save_data.py "{\'classifier\': \'neighbors\', \'n\':'  + str(n) + ', \'n_neighbors\': {}, \'weights\': \'{}\''.format(str(k), weight) +'}"'
             print('\n' + command + '\n')
             os.system(command)
 
