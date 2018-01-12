@@ -1,8 +1,18 @@
 ==3FE==
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms.
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Operations are resize to 500x500 pixels and greyscale transformation.
+***
 sourcedata = 2VV-003 // 0RD-002
 targetdata = 4FE-003.csv // 2VV-003
 script = 3FE-003.py // 1VV-003.py
-operations = get histogram indicator values from greyscale image // resize images to 500x500 pixel AND greyscale transformation using Pillow
 size = 300 images
 comment = 3 genres, 100 example files each
-timestamp = 2018-01-03_12-42-42
+timestamp = 2018-01-12_23-52-02

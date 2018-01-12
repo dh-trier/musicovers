@@ -6,7 +6,6 @@ This script classifies album cover images by musical genre.
 Here, this includes extracting the predicted labels for evaluation.
 """
 
-
 # general
 import re
 import os
@@ -25,6 +24,9 @@ from sklearn import neighbors
 from sklearn import tree
 from sklearn.model_selection import train_test_split
 
+# same package
+import docfile
+
 
 # ===============================
 # Parameters
@@ -34,7 +36,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafile = join(workdir, "6FO-daten", "6FO-002.csv") 
 targetdatafile = join(workdir, "8KL-daten", "8KL-003.csv") 
-docfile = join(workdir, "8KL-daten", "8KL-003.txt")
+documentationfile = join(workdir, "8KL-daten", "8KL-003.txt")
+docstring = __doc__
 classifiertype = "svm" # neighbors|svm|tree
 
 
@@ -106,53 +109,13 @@ def perform_classification(featurematrix, genres, classifier):
     params = classifier.get_params()
     print(params)
    
-    
-
-
-
-
-# ===============================
-# Documentation functions
-# ===============================
-
-
-def get_timestamp(): 
-    timestamp = datetime.datetime.now()
-    timestamp = re.sub(" ", "_", str(timestamp))
-    timestamp = re.sub(":", "-", str(timestamp))
-    timestamp, milisecs = timestamp.split(".")
-    return timestamp
-
-def read_previous_docfile():
-    prevdocdict = {}
-    with open(os.path.splitext(sourcedatafile)[0] + ".txt", "r") as prev:
-        lines = (line.strip().partition(' = ') for line in prev)
-        for cat, sep, con in lines:
-            if sep:
-                prevdocdict[cat] = con
-    return prevdocdict
-
-def write_docfile(sourcedatafile, targetdatafile, docfile):
-    prevdoc = read_previous_docfile()
-    operations = "operations = use the knn classifier on the feature and genre data." + " // " + prevdoc['operations']
-    sourcestring = "sourcedata = " + str(os.path.basename(sourcedatafile)) + " // " + prevdoc['sourcedata']
-    targetstring = "targetdata = " + str(os.path.basename(targetdatafile)) + " // " + prevdoc['targetdata']
-    scriptstring = "script = " + str(os.path.basename(__file__)) + " // " + prevdoc['script']
-    sizestring = "size = " + prevdoc['size']
-    commentstring = "comment = " + prevdoc['comment']
-    timestamp = "timestamp = " + get_timestamp()
-    doctext = "==7KL==\n" + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + operations + "\n" + \
-              sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
-    with open(docfile, "w") as outfile:
-        outfile.write(doctext)
-
 
 # ===============================
 # Main
 # ===============================
 
 
-def main(sourcedatafile, targetdatafile, docfile, classifiertype): 
+def main(sourcedatafile, targetdatafile, documentationfile, classifiertype, tail):
     """
     Classify music albums into subgenres based on their cover art.
     """
@@ -161,9 +124,9 @@ def main(sourcedatafile, targetdatafile, docfile, classifiertype):
     featurematrix = get_featurematrix(	data)
     classifier = define_classifier(classifiertype)
     perform_classification(featurematrix, genres, classifier)
-    write_docfile(sourcedatafile, targetdatafile, docfile)
+    docfile.write(sourcedatafile, targetdatafile, documentationfile, docstring, tail, __file__)
 
-main(sourcedatafile, targetdatafile, docfile, classifiertype)
+main(sourcedatafile, targetdatafile, documentationfile, classifiertype, tail)
 
 
 

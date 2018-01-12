@@ -1,8 +1,25 @@
 ==7KL==
+***
+Use a classifier on the feature and genre data.
+***
+This script takes raw extracted features as input.
+Input is one or several CSV file(s) with image features.
+Output is one CSV file with merged and optionally normalized features.
+Apply a z-score transformation to each histogram value.
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms.
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Operations are resize to 500x500 pixels and greyscale transformation.
+***
 sourcedata = 6FO-001.csv // 4FE-002.csv // 2VV-002 // 0RD-001
 targetdata = 8KL-001.csv // 6FO-001.csv // 4FE-002.csv // 2VV-002
 script = 7KL-001.py // 5FO-001.py // 3FE-002.py // 1VV-002.py
-operations = use a classifier on the feature and genre data. // apply a z-score transformation to each histogram value. // get histogram indicator values from greyscale image // resize images to 500x500 pixel AND greyscale transformation using Pillow
 size = 15 images
 comment = 3 genres, 5 example files each
-timestamp = 2018-01-03_13-13-07
+timestamp = 2018-01-13_00-24-46

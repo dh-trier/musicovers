@@ -21,13 +21,13 @@ def read_previous_docfile(sourcedata):
     prevdocdict = {}
 
     # find 'operations' string in docfile with regex
-    with open(sourcedata + ".txt", "r") as sd:
+    with open(os.path.splitext(sourcedata)[0] + ".txt", "r") as sd:
         operations = re.search('==\n(.*)(\*\*\*)?sourcedata =', sd.read(), re.DOTALL)
         if operations is not None:
             prevdocdict['operations'] = operations.group(1)
 
     # find all other fields in docfile
-    with open(sourcedata + ".txt", "r") as prev:
+    with open(os.path.splitext(sourcedata)[0] + ".txt", "r") as prev:
         lines = (line.strip().partition(' = ') for line in prev)
         for cat, sep, con in lines:
             if sep:
