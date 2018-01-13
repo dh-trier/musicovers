@@ -10,4 +10,4 @@ targetdata = 2VV-006
 script = 1VV-006.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-12_16-02-24
+timestamp = 2018-01-13_01-30-09

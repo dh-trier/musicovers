@@ -8,18 +8,13 @@ Output is another folder with image files.
 Images are resized to 500 x 500 pixels.
 """
 
-import re
 import os
 import glob
-import pandas as pd
-import numpy as np
 from os.path import join
 import os.path
-from PIL import Image
 
 # same package
-import docfile
-
+from ZZ_HelperModules import basic_image_functions as bif, docfile
 
 
 # ===============================
@@ -39,40 +34,19 @@ docstring = __doc__
 # Functions
 # ===============================
 
-
-def load_image(file): 
-	image = Image.open(file)
-	return image
-
-
-def transform_size(image): 
-	image = image.resize((500, 500))
-	return image
-	
-
-def save_image(image, basename, targetdatafolder): 
-    filename = join(targetdatafolder, basename + ".jpg")
-    # image.save(filename, "JPEG")
-    try:
-        image.save(filename, "JPEG")
-    except IOError:
-        print("error for", basename, filename)
-
-
 # ===============================
 # Main
 # ===============================
 
-
 def main(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail):
     if not os.path.exists(targetdatafolder):
         os.makedirs(targetdatafolder)
-    for file in glob.glob(sourcedatafolder + "/*"): 
+    for file in glob.glob(sourcedatafolder + "/*"):
         basename, ext = os.path.basename(file).split(".")
-        image = load_image(file)
-        image = transform_size(image)
-        save_image(image, basename, targetdatafolder)
+        image = bif.load(file)
+        image = bif.resize(image, 500, 500)
+        bif.save(image, basename, targetdatafolder)
     docfile.write(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail, __file__)
 
-main(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail)
 
+main(sourcedatafolder, targetdatafolder, documentationfile, docstring, tail)

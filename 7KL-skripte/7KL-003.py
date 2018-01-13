@@ -7,26 +7,18 @@ Here, this includes extracting the predicted labels for evaluation.
 """
 
 # general
-import re
-import os
-import glob
 import pandas as pd
-import numpy as np
 from os.path import join
 import os.path
-import datetime
 
 # specific
-from sklearn.feature_extraction.text import CountVectorizer as CV
-from sklearn import model_selection as ms
 from sklearn import svm
 from sklearn import neighbors
 from sklearn import tree
 from sklearn.model_selection import train_test_split
 
 # same package
-import docfile
-
+from ZZ_HelperModules import docfile
 
 # ===============================
 # Parameters

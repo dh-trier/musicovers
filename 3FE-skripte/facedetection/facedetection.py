@@ -8,22 +8,15 @@ Output is a csv-file listing number of detected faces, genre, hashes and filenam
 """
 
 # general
-import re
 import os
 import glob
 import pandas as pd
-import numpy as np
 from os.path import join
 import os.path
-import datetime
 import cv2
 
 # specific
-import docfile
-from PIL import Image
-from matplotlib import pyplot as plt
-import matplotlib.image as mpimg
-
+from ZZ_HelperModules import docfile
 
 #scaleFactor – Parameter specifying how much the image size is reduced at each image scale.
 #minNeighbors – Parameter specifying how many neighbors each candidate rectangle should have to retain it.

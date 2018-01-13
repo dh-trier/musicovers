@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-DOC STRING MISSING
+This module offers functions to write and analyse documentation files.
 """
 
 import datetime

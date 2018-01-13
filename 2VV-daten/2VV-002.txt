@@ -10,4 +10,4 @@ targetdata = 2VV-002
 script = 1VV-002.py
 size = 15 images
 comment = 3 genres, 5 example files each
-timestamp = 2018-01-12_15-29-40
+timestamp = 2018-01-13_01-25-21

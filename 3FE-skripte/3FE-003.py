@@ -9,7 +9,6 @@ The features extracted here are indicator values from the histograms.
 """
 
 # general
-import re
 import os
 import glob
 import pandas as pd
@@ -18,13 +17,10 @@ from os.path import join
 import os.path
 
 # specific
-from PIL import Image
-from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 
 # same package
-import docfile
-
+from ZZ_HelperModules import docfile
 
 # ===============================
 # Parameters

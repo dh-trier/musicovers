@@ -8,17 +8,12 @@ Using those labels, a confusion matrix is built and visualized.
 """
 
 # general
-import re
-import os
-import glob
 import pandas as pd
 import numpy as np
 from os.path import join
 import os.path
 
 # specific
-from sklearn.feature_extraction.text import CountVectorizer as CV
-from sklearn import model_selection as ms
 from sklearn import svm
 from sklearn import neighbors
 from sklearn import tree
@@ -28,7 +23,7 @@ import matplotlib.pyplot as plt
 import itertools
 
 # same package
-import docfile
+from ZZ_HelperModules import docfile
 
 # ===============================
 # Parameters

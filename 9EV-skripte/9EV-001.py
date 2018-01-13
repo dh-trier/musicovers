@@ -6,11 +6,7 @@ Visualize the feature distribution.
 """
 
 # general
-import re
-import os
-import glob
 import pandas as pd
-import numpy as np
 from os.path import join
 import os.path
 
@@ -18,7 +14,7 @@ import os.path
 import pygal
 
 # same package
-import docfile
+from ZZ_HelperModules import docfile
 
 # ===============================
 # Parameters
