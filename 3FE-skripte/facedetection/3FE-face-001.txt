@@ -1,4 +1,4 @@
-==fac==
+==facedetection==
 ***
 This script detects faces in images.
 https://docs.opencv.org/3.1.0/d7/d8b/tutorial_py_face_detection.html
@@ -15,4 +15,4 @@ targetdata = 3FE-face-001.csv // 2VV-007
 script = facedetection.py // 1VV-007.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-15_20-21-31
+timestamp = 2018-01-15_23-15-17

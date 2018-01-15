@@ -1,4 +1,4 @@
-==3FE==
+==3FE-skripte==
 ***
 This script takes the preprocessed image data and extracts some features.
 Input is a folder with image files.
@@ -15,4 +15,4 @@ targetdata = 4FE-003.csv // 2VV-003
 script = 3FE-003.py // 1VV-003.py
 size = 300 images
 comment = 3 genres, 100 example files each
-timestamp = 2018-01-12_23-52-02
+timestamp = 2018-01-15_23-17-13

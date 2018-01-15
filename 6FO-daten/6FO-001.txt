@@ -1,4 +1,4 @@
-==5FO==
+==5FO-skripte==
 ***
 This script takes raw extracted features as input.
 Input is one or several CSV file(s) with image features.
@@ -20,4 +20,4 @@ targetdata = 6FO-001.csv // 4FE-002.csv // 2VV-002
 script = 5FO-001.py // 3FE-002.py // 1VV-002.py
 size = 15 images
 comment = 3 genres, 5 example files each
-timestamp = 2018-01-13_00-16-03
+timestamp = 2018-01-15_23-17-35
