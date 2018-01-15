@@ -31,13 +31,13 @@ documentationfile = join(workdir, "..\\4FE-daten", "4FE-005.txt")
 
 
 def load_csv_file(name):
-    file = pd.read_csv(name, sep="\t")
+    file = pd.read_csv(name, sep=",")
     return file
 
 
 def save_data(merge):
     with open(merged_csv, "w") as outfile:
-        merge.to_csv(outfile, sep="\t")
+        merge.to_csv(outfile, sep=",")
 
 
 # ========================

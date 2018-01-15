@@ -39,7 +39,7 @@ def load_data(sourcedatafile):
     https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv
     """
     with open(sourcedatafile, "r") as infile:
-        data = pd.read_csv(infile, sep="\t", encoding="utf8", index_col=False)
+        data = pd.read_csv(infile, sep=",", encoding="utf8", index_col=False)
         return data
 
 

@@ -41,7 +41,7 @@ def load_data(sourcedatafile):
 	Load the CSV file as a pandas DataFrame.
 	"""
 	with open(sourcedatafile, "r") as infile: 
-		data = pd.DataFrame.from_csv(infile, sep="\t")
+		data = pd.DataFrame.from_csv(infile, sep=",")
 		return data
 
 
@@ -57,7 +57,7 @@ def normalize_data(data):
 
 def save_data(data, targetdatafile):
     with open(targetdatafile, "w") as outfile:
-        data.to_csv(outfile, sep="\t")
+        data.to_csv(outfile, sep=",")
 
 
 # ========================
