@@ -71,7 +71,7 @@ def save_data(allhashes, allgenres, allhist_median, allhist_stdev, allhist_max, 
         "histmax" : allhist_max 
         })
     with open(targetdatafile, "w") as outfile:
-        data.to_csv(outfile, sep=";")
+        data.to_csv(outfile, sep="\t")
 
 
 # ========================
