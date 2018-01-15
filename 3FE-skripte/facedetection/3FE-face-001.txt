@@ -15,4 +15,4 @@ targetdata = 3FE-face-001.csv // 2VV-007
 script = facedetection.py // 1VV-007.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-15_23-15-17
+timestamp = 2018-01-15_23-31-00

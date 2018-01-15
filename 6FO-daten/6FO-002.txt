@@ -20,4 +20,4 @@ targetdata = 6FO-002.csv // 4FE-003.csv // 2VV-003
 script = 5FO-002.py // 3FE-003.py // 1VV-003.py
 size = 300 images
 comment = 3 genres, 100 example files each
-timestamp = 2018-01-15_23-17-41
+timestamp = 2018-01-15_23-32-59

@@ -17,4 +17,4 @@ targetdata = 4FE-005.csv // 4FE-004.csv // 2VV-004
 script = mergeCSV.py // 3FE-004.py // 1VV-004.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-15_23-16-02
+timestamp = 2018-01-15_23-32-40
