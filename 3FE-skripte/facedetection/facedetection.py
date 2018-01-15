@@ -29,12 +29,12 @@ from ZZ_HelperModules import docfile
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "../2VV-daten", "2VV-007")
-targetdatafile = join(workdir, "../4FE-daten", "4FE-005.csv")
-documentationfile = join(workdir, "../4FE-daten", "4FE-005.txt")
+targetdatafile = join(workdir, "facedetection", "3FE-face-001.csv")
+documentationfile = join(workdir, "facedetection", "3FE-face-001.txt")
 
 
-scaleFactor = 1.09 # default: 1.3 
-minNeighbors = 4 # default: 5 
+scaleFactor = 1.09  # default: 1.3
+minNeighbors = 4  # default: 5
 
 # ===============================
 # Functions
