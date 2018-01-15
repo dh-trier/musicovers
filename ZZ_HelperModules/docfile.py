@@ -8,6 +8,9 @@ import datetime
 import re
 import os
 
+# ===============================
+# Functions
+# ===============================
 
 def get_timestamp():
     timestamp = datetime.datetime.now()
@@ -63,7 +66,7 @@ def write(sourcedata, targetdata, docfile, docstring, tail, filename):
     sizestring = "size = " + prevdoc['size']
     commentstring = "comment = " + prevdoc['comment']
     timestamp = "timestamp = " + get_timestamp()
-    doctext = "==" + tail[:3] + "==\n" + operations + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + \
+    doctext = "==" + tail + "==\n" + operations + sourcestring + "\n" + targetstring + "\n" + scriptstring + "\n" + \
               sizestring + "\n" + commentstring + "\n" + timestamp + "\n"
     with open(docfile, "w") as outfile:
         outfile.write(doctext)
