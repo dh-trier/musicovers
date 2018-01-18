@@ -1,0 +1,15 @@
+==Cla==
+***
+This script uses the Clarifai API to recognize objects from images
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to RGB color space.
+***
+sourcedata = 2VV-005 // 0RD-003
+targetdata = 4FE-006.csv // 2VV-005
+script = clar.py // 1VV-005.py
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-18_13-41-03
