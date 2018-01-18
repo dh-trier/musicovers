@@ -1,5 +1,5 @@
 """
-This script uses the Clarifai API to recognize objects from images
+This script uses the Clarifai API to recognize objects from images!
 """
 
 
