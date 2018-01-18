@@ -32,8 +32,8 @@ from ZZ_HelperModules import docfile
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "2VV-daten", "2VV-005")
-targetdatafile = join(workdir, "4FE-daten", "4FE-006-colors.csv")
-documentationfile = join(workdir, "4FE-daten", "4FE-006-colors.txt")
+targetdatafile = join(workdir, "4FE-daten", "4FE-007-colors.csv")
+documentationfile = join(workdir, "4FE-daten", "4FE-007-colors.txt")
 docstring = __doc__
 
 

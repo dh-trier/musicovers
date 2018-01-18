@@ -13,7 +13,7 @@ Images are resized to 500 x 500 pixels AND converted to RGB color space.
 ***
 sourcedata = 2VV-005 // 0RD-003
 targetdata = 4FE-006-colors.csv // 2VV-005
-script = 3FE-006-colors.py // 1VV-005.py
+script = skript.py // 1VV-005.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-18_12-52-53
+timestamp = 2018-01-18_13-38-04
