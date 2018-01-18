@@ -1,0 +1,18 @@
+==facedetection==
+***
+This script detects people in images.
+see description in haarcascade-files
+Input is a folder with image files. 
+Output is a csv-file listing number of detected people, genre, hashes and filenames. 
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to greyscale.
+***
+sourcedata = 2VV-007 // 0RD-003
+targetdata = 4FE-006xxx.csv // 2VV-007
+script = peopledetection.py // 1VV-007.py
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-18_15-21-08
