@@ -1,0 +1,52 @@
+h1 {
+	margin: auto;
+}
+
+ul {
+	list-style-type: none;
+}
+
+#outer {
+	text-align: center;
+}
+
+#description {
+	margin: auto; 
+	width: 45%; 
+	font-style: italic;
+}
+
+#cover {
+	height: 400px; 
+	width: 400px; 
+	margin: auto;
+}
+
+#form {
+	margin: auto;
+}
+	
+#input {
+	margin-top: 20px; 
+	font-size: 25px;
+}
+
+#inner_left {
+	float: left;
+	width: 55%;
+	height: 100%;
+}
+
+#inner_right {
+	text-align: left; 
+}
+
+#submit {
+	height: 45px;
+	width: 100px;
+	font-size: 25px;
+}
+
+#results {
+	margin-top: 25px;
+}

@@ -10,12 +10,12 @@ if (substr($img_orig, 0, strlen($prefix)) == $prefix) {
 } 
 
 /* move image to another folder */
-rename($img_orig, 'uncertain_corrected/' . $img);
+// rename($img_orig, 'uncertain_corrected/' . $img);
 
 /* write user input to file */
-$file = fopen('data_uncertain_corrected.csv', 'a');
-fwrite($file, $img . "\t" . $faces . "\n");
-fclose($file);
+// $file = fopen('data_uncertain_corrected.csv', 'a');
+// fwrite($file, $img . "\t" . $faces . "\n");
+// fclose($file);
 
 /* redirect */
 header("Location: http://noeffingtonpost.de/trier/praxisdh/faces_auswertung.php");

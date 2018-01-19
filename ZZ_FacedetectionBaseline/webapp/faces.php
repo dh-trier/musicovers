@@ -13,14 +13,8 @@ if($img == null) {
 <head>
 	<title>Facedetection</title>
 	<meta charset="utf-8">
-	<style>
-		h1 {margin: auto;}
-		#outer {text-align: center;}
-		#description {margin: auto; width: 35%; font-style: italic;}
-		#cover {height: 400px; width: 400px; margin: auto;}
-		#form {margin: auto;}
-		#input {margin-top: 20px; font-size: 25px;}
-	</style>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="js/jquery.js"></script>
 </head>
 <body>
 	<div id="outer">

@@ -17,13 +17,13 @@ import re
 # ===============
 # Parameters
 # ===============
-input_file = "data_bereinigt.csv"
-uncertain_file = "data_uncertain.csv"
+input_file = "data_clean.csv"
+uncertain_file = "data_images-with-uncertain-nr-of-faces.csv"
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
-targetdatafolder = join(workdir, "ZZ_FacedetectionBaseline", "uncertain_images")
+targetdatafolder = join(workdir, "ZZ_FacedetectionBaseline/webapp", "uncertain")
 
 
 # ===============
@@ -54,9 +54,9 @@ def create_dictionary_for_uncertain_data(data, data_uncertain):
     return data_dict
 
 
-def write_uncertain(data_dict):
+def write_uncertain(filename, data_dict):
     # write into TXT file
-    with open('data_uncertain.txt', 'w', encoding='utf-8') as txt_outfile:
+    with open(filename + '.txt', 'w', encoding='utf-8') as txt_outfile:
         for row in data_dict:
             txt_outfile.write(row + "\t")
             faces = sorted(data_dict[row])
@@ -65,7 +65,7 @@ def write_uncertain(data_dict):
             txt_outfile.write("\n")
 
     # write into JSON file
-    with open('data_uncertain.json', 'w', encoding='utf-8') as json_outfile:
+    with open('webapp/js/' + filename + '.json', 'w', encoding='utf-8') as json_outfile:
         json.dump(data_dict, json_outfile)
 
 
@@ -103,8 +103,8 @@ def main():
     data_dict_uncertain = create_dictionary_for_uncertain_data(data, data_uncertain)
     data_dict_full = create_dictionary_for_full_data(data)
 
-    write_uncertain(data_dict_uncertain)
-    write_median('median.csv', data_dict_uncertain)
+    write_uncertain('data_uncertain', data_dict_uncertain)
+    write_median('median_uncertain.csv', data_dict_uncertain)
     write_median('median_full.csv', data_dict_full)
 
     copy_images(data_dict_uncertain)
