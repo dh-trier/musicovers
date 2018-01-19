@@ -111,7 +111,7 @@ def main(sourcedatafolder, targetdatafile):
         allpeople.append(people)
         ### for showing images comment out show_image
             
-        #print("faces:", faces)        
+        #print("people:", people)        
         #show_image(image)
         
     save_data(allhashes, allgenres, allpeople, allfiles, targetdatafile)
