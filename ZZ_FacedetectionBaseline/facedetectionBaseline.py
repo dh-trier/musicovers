@@ -12,7 +12,7 @@ import os.path
 import glob
 from shutil import copyfile
 import json
-import numpy as np
+import re
 
 # ===============
 # Parameters
@@ -30,7 +30,18 @@ targetdatafolder = join(workdir, "ZZ_FacedetectionBaseline", "uncertain_images")
 # Functions
 # ===============
 
-def create_dictionary(data, data_uncertain):
+def create_dictionary_for_full_data(data):
+    data_dict = {}
+    count = -1
+    for hash_id in data.iloc[:, 0]:
+        count += 1
+        if hash_id not in data_dict:
+            data_dict[hash_id] = []
+        data_dict[hash_id].append(int(data.iloc[count, 1]))
+    return data_dict
+
+
+def create_dictionary_for_uncertain_data(data, data_uncertain):
     data_dict = {}
     for hash_id in data_uncertain.iloc[:, 0]:
         count = -1
@@ -44,6 +55,7 @@ def create_dictionary(data, data_uncertain):
 
 
 def write_uncertain(data_dict):
+    # write into TXT file
     with open('data_uncertain.txt', 'w', encoding='utf-8') as txt_outfile:
         for row in data_dict:
             txt_outfile.write(row + "\t")
@@ -52,27 +64,31 @@ def write_uncertain(data_dict):
                 txt_outfile.write(str(value) + "\t")
             txt_outfile.write("\n")
 
+    # write into JSON file
     with open('data_uncertain.json', 'w', encoding='utf-8') as json_outfile:
         json.dump(data_dict, json_outfile)
 
 
-def write_median(data_dict):
-    with open('median.csv', 'w', encoding='utf-8') as outfile:
+def write_median(filename, data_dict):
+    with open(filename, 'w', encoding='utf-8') as outfile:
+        outfile.write("filename\thash\tgenre\tfaces\n")  # header
         for entry in data_dict:
-            a = pd.DataFrame(data_dict[entry])
+            genre = re.search('.*_(.*)\.jpg', entry)  # get genre from filename
+            image_hash = re.search('[^_]*_([^_]*)', entry)  # get hash
+            a = pd.DataFrame(data_dict[entry])  # convert list to DataFrame so we can use the "median" function
             frac, whole = math.modf(a.median()[0])
-            if frac == 0.0:
-                outfile.write(entry + "\t" + str(int(whole)) + "\n")
-            else:
-                outfile.write(entry + "\t" + str(a.median()[0]) + "\n")
+            if frac == 0.0:  # remove "0" after decimal point
+                outfile.write(entry + "\t" + image_hash.group(1) + "\t" + genre.group(1) + "\t" + str(int(whole)) + "\n")
+            else:  # write float variable
+                outfile.write(entry + "\t" + image_hash.group(1) + "\t" + genre.group(1) + "\t" + str(a.median()[0]) + "\n")
 
 
 def copy_images(data_dict):
-    if not os.path.exists(targetdatafolder):
+    if not os.path.exists(targetdatafolder):  # create target folder
         os.makedirs(targetdatafolder)
     for file in glob.glob(sourcedatafolder + "/*"):
         filename = os.path.basename(file)
-        if filename in data_dict:
+        if filename in data_dict:  # if file is uncertain, move it
             copyfile(file, join(targetdatafolder, filename))
 
 
@@ -84,11 +100,14 @@ def main():
     data = pd.read_csv(input_file, "\t", header=None)
     data_uncertain = pd.read_csv(uncertain_file, sep="\t", header=None)
 
-    data_dict = create_dictionary(data, data_uncertain)
-    write_uncertain(data_dict)
-    write_median(data_dict)
+    data_dict_uncertain = create_dictionary_for_uncertain_data(data, data_uncertain)
+    data_dict_full = create_dictionary_for_full_data(data)
 
-    copy_images(data_dict)
+    write_uncertain(data_dict_uncertain)
+    write_median('median.csv', data_dict_uncertain)
+    write_median('median_full.csv', data_dict_full)
+
+    copy_images(data_dict_uncertain)
 
 
 main()
