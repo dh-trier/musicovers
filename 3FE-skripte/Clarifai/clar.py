@@ -17,7 +17,7 @@ import re
 import docfile
 
 # enter api_key between '...'
-app = ClarifaiApp(api_key='e3859dda745d4db4ab3b8ad88f986975')
+app = ClarifaiApp(api_key='...')
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
@@ -74,13 +74,13 @@ def get_objects ():
             filename = split_paths[index * batch_size + x]  # get full file name
             image_hash = re.search('[^_]*_([^_]*)', filename)  # get hash
             image_hash = image_hash.group(1)
-            file.write(filename + "," + image_hash + ",")  # write filename and hash to CSV file
+            file.write(filename + "," + image_hash)  # write filename and hash to CSV file
             
             i = 0
             while i < 5:
                 tags = data['outputs'][x]['data']['concepts'][i]['name']
                 value = data['outputs'][x]['data']['concepts'][i]['value']
-                file.write(tags + "," + str(value) + ",")
+                file.write("," + tags + "," + str(value))
                 if i == 4:
                     file.write("\n")
                 i = i + 1
