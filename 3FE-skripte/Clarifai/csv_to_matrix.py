@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 from os.path import join
 import os.path
+import re
 
 
 # ===============================
@@ -39,7 +40,7 @@ def load_data(sourcedatafile):
 def convert(files, objects):
     count = 0
     with open(targetdatafile, "w", encoding="utf-8") as outfile:
-        outfile.write("hash")
+        outfile.write("filename,hash")
         for tag in objects.iloc[:, 0]:
             outfile.write("," + tag)
         for filename in files.iloc[:, 0]:
@@ -48,6 +49,9 @@ def convert(files, objects):
                 tag_array.append(files.iat[count, column])
             count += 1
             outfile.write("\n" + filename)
+            image_hash = re.search('[^_]*_([^_]*)', filename)  # get hash
+            image_hash = image_hash.group(1)
+            outfile.write("," + image_hash)
 
             for obj in objects.iloc[:, 0]:
                 if obj in tag_array:
