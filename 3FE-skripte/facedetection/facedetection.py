@@ -29,12 +29,12 @@ from ZZ_HelperModules import docfile
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "../2VV-daten", "2VV-007")
-targetdatafile = join(workdir, "../4FE-daten", "4FE-006.csv")
-documentationfile = join(workdir, "../4FE-daten", "4FE-006.txt")
+targetdatafile = join(workdir, "../4FE-daten", "4FE-007_3xxx.csv")
+documentationfile = join(workdir, "../4FE-daten", "4FE-007_3xxx.txt")
 
-
-scaleFactor = 1.09  # default: 1.3
-minNeighbors = 4  # default: 5
+#best results with 1.1 and 5 leading to recognition rate of 56,2% (500 Testcovers)
+scaleFactor = 1.1 # default: 1.3
+minNeighbors = 5  # default: 5
 
 # ===============================
 # Functions
@@ -83,7 +83,7 @@ def save_data(allhashes, allgenres, allfaces, allfiles, targetdatafile):
         "filename" : allfiles
         })
    with open(targetdatafile, "w") as outfile:
-        data.to_csv(outfile, sep=",")
+        data.to_csv(outfile, sep=";")
 		
 
 # ========================
