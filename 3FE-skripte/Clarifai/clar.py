@@ -15,6 +15,7 @@ from os.path import join
 import os.path
 import re
 import docfile
+from collections import Counter
 
 # enter api_key between '...'
 app = ClarifaiApp(api_key='...')
@@ -30,6 +31,12 @@ documentationfile = join(workdir, "../4FE-daten", "4FE-006.txt")
 # Functions
 # ===============
 
+object_list = []
+
+def count_objects(list_of_objects):
+    #counts how often certain objects were found
+    return Counter(list_of_objects)
+    
 def get_objects ():
     # save all files in a variable
     files = glob.glob(sourcedatafolder + "/*")
@@ -37,6 +44,8 @@ def get_objects ():
     total_files = len(files)
     # counts how often the while-loop is completed
     index = 0
+    #counts how often objects were found
+    object_list = []
     # iterator
     counter = 0
     # use a divisor that does not create a remainder to avoid IndexErrors!
@@ -77,11 +86,12 @@ def get_objects ():
             file.write(filename + "," + image_hash)  # write filename and hash to CSV file
             
             i = 0
-            while i < 5:
+            while i < 20:
                 tags = data['outputs'][x]['data']['concepts'][i]['name']
+                append.object_list(tags)
                 value = data['outputs'][x]['data']['concepts'][i]['value']
                 file.write("," + tags + "," + str(value))
-                if i == 4:
+                if i == 19:
                     file.write("\n")
                 i = i + 1
         
@@ -93,6 +103,7 @@ def get_objects ():
 
 def main():
     get_objects()
+    count_objects(object_list)
     docfile.write(sourcedatafolder, targetdatafile, documentationfile, __doc__, tail, __file__)
 
 
