@@ -1,0 +1,22 @@
+==ZZ_HelperModules==
+***
+Merge two CSV files.
+ (4FE-009.csv with 4FE-006-colors.csv => 6FO-009.csv)
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files. The images are colored.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms for every channel of BGR color space.
+Color features are being extracted using OpenCV
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to RGB color space.
+***
+sourcedata = 4FE-006-colors.csv // 2VV-005 // 0RD-003
+targetdata = 6FO-009.csv // 4FE-006-colors.csv // 2VV-005
+script = mergeCSV.py // skript.py // 1VV-005.py
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-26_09-45-22

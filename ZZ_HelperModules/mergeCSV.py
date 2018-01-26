@@ -21,16 +21,16 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 
 # first csv file will be integrated into second csv file
-first_csv = join(workdir, "4FE-daten", "4FE-006.csv")
-second_csv = join(workdir, "6FO-daten", "6FO-006.csv")
-merged_csv = join(workdir, "6FO-daten", "6FO-007.csv")
+first_csv = join(workdir, "6FO-daten", "6FO-009.csv")
+second_csv = join(workdir, "4FE-daten\\recognized_objects", "file_object_matrix.csv")
+merged_csv = join(workdir, "6FO-daten", "6FO-010.csv")
 # which columns from the first CSV file should be added to the second one?
 # columns = ['column_name_1', 'columns_name_2', '...']  # identifier column ('hash' or sth. similar) is required!
-columns = ['hash', 'tag1', 'tag1_p', 'tag2', 'tag2_p', 'tag3', 'tag3_p', 'tag4', 'tag4_p', 'tag5', 'tag5_p']  # an identifier column ('hash' or sth. similar) is required!
+columns = ['hash', 'faces', 'genre', 'histmax_b', 'histmax_g', 'histmax_r', 'histmed_b', 'histmed_g', 'histmed_r', 'histstd_b', 'histstd_g', 'histstd_r']  # an identifier column ('hash' or sth. similar) is required!
 # is the first CSV file a pandas dataframe?
-dataframe = False
+dataframe = True
 
-documentationfile = join(workdir, "6FO-daten", "6FO-007.txt")
+documentationfile = join(workdir, "6FO-daten", "6FO-010.txt")
 
 
 # ===============================
@@ -57,7 +57,8 @@ def merge(one, two):
     first = first[columns]  # get only the specified columns from the first CSV file
     print(first)
     merged = pd.merge(first, second, on=['hash'], how='left')  # perform left join
-    merged = merged.drop(['Unnamed: 0'], 1)  # remove duplicate pandas ID column
+    # merged = merged.drop(['Unnamed: 0'], 1)  # remove duplicate pandas ID column
+    merged = merged.drop(['filename'], 1)
     return merged
 
 
@@ -71,7 +72,7 @@ def main(first_csv, second_csv):
 
     first_tmp = os.path.basename(os.path.normpath(first_csv))  # get filenames of the CSV files for use in the docfile
     second_tmp = os.path.basename(os.path.normpath(second_csv))
-    docfile.write(second_csv, merged_csv, documentationfile, __doc__ + " (" + first_tmp + " with " + second_tmp + " => " + os.path.basename(merged_csv) + ")\n", tail, __file__)
+    docfile.write(first_csv, merged_csv, documentationfile, __doc__ + " (" + first_tmp + " with " + second_tmp + " => " + os.path.basename(merged_csv) + ")\n", tail, __file__)
 
 
 main(first_csv, second_csv)

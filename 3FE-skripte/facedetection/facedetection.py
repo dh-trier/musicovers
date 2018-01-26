@@ -83,7 +83,7 @@ def save_data(allhashes, allgenres, allfaces, allfiles, targetdatafile):
         "filename" : allfiles
         })
    with open(targetdatafile, "w") as outfile:
-        data.to_csv(outfile, sep=";")
+        data.to_csv(outfile, sep=",")
 		
 
 # ========================
