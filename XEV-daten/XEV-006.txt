@@ -1,0 +1,32 @@
+==9EV-skripte==
+***
+This script uses the predicted and actual labels extracted in the previous script.
+Using those labels, a confusion matrix is built and visualized.
+***
+This script classifies album cover images by musical genre.
+Here, this includes extracting the predicted labels for evaluation.
+Output is a CSV file with test labels and the labels predicted for them.
+***
+This script takes raw extracted features as input.
+Input is one or several CSV file(s) with image features.
+Output is one CSV file with merged and optionally normalized features.
+Apply a z-score transformation to each histogram value.
+***
+Merge the facedetection CSV file with a given feature CSV file.
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms.
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Operations are resize to 500x500 pixels and binarization of the image (== 1 bit per pixel).
+***
+sourcedata = 8KL-005.csv // 6FO-004.csv // 4FE-005.csv // 4FE-004.csv // 2VV-004 // 0RD-003
+targetdata = XEV-006.svg // 8KL-005.csv // 6FO-004.csv // 4FE-005.csv // 4FE-004.csv // 2VV-004
+script = 9EV-006.py // 7KL-005.py // 5FO-004.py // mergeCSV.py // 3FE-004.py // 1VV-004.py
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-27_18-58-08
