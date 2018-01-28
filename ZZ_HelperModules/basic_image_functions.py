@@ -41,7 +41,10 @@ def resize(image, a, b):
     :param b: # TODO Is this width or height?!
     :return: Resized Image
     """
-    image = image.resize((a, b))
+    try:
+        image = image.resize((a, b))
+    except:
+        print(str(image) + " konnte nicht verarbeitet werden")
     return image
 
 

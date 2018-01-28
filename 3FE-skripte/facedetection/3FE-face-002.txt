@@ -1,0 +1,18 @@
+==facedetection==
+***
+This script detects faces in images.
+https://docs.opencv.org/3.1.0/d7/d8b/tutorial_py_face_detection.html
+Input is a folder with image files. 
+Output is a csv-file listing number of detected faces, genre, hashes and filenames. 
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to greyscale.
+***
+sourcedata = 2VV-008 // 0RD-004
+targetdata = 3FE-face-002.csv // 2VV-008
+script = facedetection.py // 1VV-007.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-01-28_20-09-16
