@@ -5,14 +5,14 @@
 This script takes the preprocessed image data and extracts some features.
 Input is a folder with image files. The images are colored.
 Output is a CSV file with image features.
-The features extracted here are indicator values from the histograms for every channel of HSV color space.
+The features extracted here are indicator values from the histograms for every channel of HSV color space, using 36 out of 180 possible bins for Hue channel .
 Extracted using OpenCV.
 """
 
 # general
 import os
 import glob
-import pandas as pd
+import pandas as p
 import numpy as np
 from os.path import join
 import os.path
@@ -23,7 +23,8 @@ import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 
 # same package
-from ZZ_HelperModules import docfile
+# from ZZ_HelperModules 
+import docfile
 
 # ===============================
 # Parameters
@@ -31,9 +32,9 @@ from ZZ_HelperModules import docfile
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "HSV", "images")
-targetdatafile = join(workdir, "HSV", "features", "features.csv")
-documentationfile = join(workdir, "HSV", "features", "features.txt")
+sourcedatafolder = join(workdir, "2VV-daten", "2VV-005")
+targetdatafile = join(workdir, "4FE-daten", "4FE-008-colors.csv")
+documentationfile = join(workdir, "4FE-daten", "4FE-008-colors.txt")
 docstring = __doc__
 
 
@@ -48,7 +49,11 @@ def get_metadata(file):
 
 
 def load_image(file):   
-    image = cv2.imread(file)
+    '''loading images in BGR color space (OpenCV default) and convert to HSV space. 
+    Returning image.'''
+    img = cv2.imread(file)
+    image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
     #cv2.imshow('image', image)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows() # mit "q" schließen!
@@ -119,15 +124,15 @@ def save_data(allfilenames, allhmed, allhstd, allhmax1, allhmax2, allhmax3, alls
         "smax1" : allsmax1, 
         "smax2" : allsmax2, 
         "smax3" : allsmax3, 
-#        "smed" : allsmed, 
-#        "sstd" : allsstd, 
+        "smed" : allsmed, 
+        "sstd" : allsstd, 
         "vmax1" : allvmax1, 
         "vmax2" : allvmax2, 
         "vmax3" : allvmax3, 
-#        "vmedian" : allvmed, 
-#        "vstd" : allvstd, 
+        "vmedian" : allvmed, 
+        "vstd" : allvstd, 
         })
-    print(data.head())
+    print("Data:", data.head())
     with open(targetdatafile, "w") as outfile:
         data.to_csv(outfile, sep=",")
 
