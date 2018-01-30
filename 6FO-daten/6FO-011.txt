@@ -1,0 +1,10 @@
+==facedetection==
+***
+Z-Score transformation of detected faces using R-Script
+***
+sourcedata = 2VV-007 // 0RD-003
+targetdata = 6FO-011.csv // 2VV-007
+script = zscore.R // facedetection.py // 1VV-007.py 
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-01-30_19-48-00

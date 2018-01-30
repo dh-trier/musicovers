@@ -15,4 +15,4 @@ zscore
 f$zscore_faces =  zscore 
 
 #csv-Datei speichern
-write.table(f, file = "7FO-011.csv",row.names=FALSE,col.names=TRUE, sep=",", dec=".")
+write.table(f, file = "6FO-011.csv",row.names=FALSE,col.names=TRUE, sep=",", dec=".")
