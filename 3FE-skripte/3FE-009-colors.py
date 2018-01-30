@@ -5,7 +5,7 @@
 This script takes the preprocessed image data and extracts some features.
 Input is a folder with image files. The images are colored.
 Output is a CSV file with image features.
-The features extracted here are indicator values from the histograms for every channel of HSV color space, using 36 out of 180 possible bins for Hue channel .
+The features extracted here are indicator values from the histograms for every channel of HSV color space, using 12 out of 180 possible bins for Hue channel .
 Extracted using OpenCV.
 """
 
@@ -33,8 +33,8 @@ import docfile
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
 sourcedatafolder = join(workdir, "2VV-daten", "2VV-005")
-targetdatafile = join(workdir, "4FE-daten", "4FE-008-colors.csv")
-documentationfile = join(workdir, "4FE-daten", "4FE-008-colors.txt")
+targetdatafile = join(workdir, "4FE-daten", "4FE-009-colors.csv")
+documentationfile = join(workdir, "4FE-daten", "4FE-009-colors.txt")
 docstring = __doc__
 
 
@@ -165,7 +165,7 @@ def main(sourcedatafolder, targetdatafile, tail):
         print("\n====", filename)
         image = load_image(file)
         #print("histogram for HUE (which color)\n0=red, 60=yellow, 240=blue")
-        histogram = make_histogram(image, 0, 36, [0,180])
+        histogram = make_histogram(image, 0, 12, [0,180])
         #plt.plot(histogram)
         #plt.show()
         #print(histogram)
