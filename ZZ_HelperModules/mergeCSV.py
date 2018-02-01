@@ -29,6 +29,9 @@ merged_csv = join(workdir, "6FO-daten", "6FO-010.csv")
 columns = ['hash', 'faces', 'genre', 'histmax_b', 'histmax_g', 'histmax_r', 'histmed_b', 'histmed_g', 'histmed_r', 'histstd_b', 'histstd_g', 'histstd_r']  # an identifier column ('hash' or sth. similar) is required!
 # is the first CSV file a pandas dataframe?
 dataframe = True
+join_on = ['hash']
+join_type = 'left'  # left | right | inner | outer
+dropcolumns = ['filename']
 
 documentationfile = join(workdir, "6FO-daten", "6FO-010.txt")
 
@@ -56,9 +59,9 @@ def merge(one, two):
     second = load_csv_file(two)
     first = first[columns]  # get only the specified columns from the first CSV file
     print(first)
-    merged = pd.merge(first, second, on=['hash'], how='left')  # perform left join
+    merged = pd.merge(first, second, on=join_on, how=join_type)  # perform left join
     # merged = merged.drop(['Unnamed: 0'], 1)  # remove duplicate pandas ID column
-    merged = merged.drop(['filename'], 1)
+    merged = merged.drop(dropcolumns, 1)
     return merged
 
 
