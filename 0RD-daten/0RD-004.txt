@@ -1,0 +1,3 @@
+purpose = Image data (complete)
+size = 6,479 images
+comment = full dataset
