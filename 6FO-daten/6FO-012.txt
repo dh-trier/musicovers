@@ -1,0 +1,20 @@
+==5FO-skripte==
+***
+Normalize histogram features (median, max, stdev) to values between 0 and 1.
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms.
+***
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to greyscale.
+***
+sourcedata = 4FE-003.csv // 2VV-007 // 0RD-003
+targetdata = 6FO-012.csv // 4FE-003.csv // 2VV-007
+script = 5FO-005.py // 3FE-004.py // 1VV-007.py
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-02-01_18-34-16
