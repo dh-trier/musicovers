@@ -1,0 +1,12 @@
+==3FE-skripte==
+***
+Create a histogram and get max, median and stdev values.
+***
+Resize images to 500 x 500 pixels AND convert to RGB color space.
+***
+sourcedata = 2VV-001 // 0RD-004
+targetdata = 4FE-011.csv // 2VV-001
+script = 3FE-004.py // 1VV-005.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-02_22-51-38
