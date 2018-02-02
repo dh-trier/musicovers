@@ -2,11 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-This script takes the preprocessed image data and extracts some features.
-Input is a folder with image files.
-Output is a CSV file with image features.
-The features extracted here are indicator values from the histograms.
+Create a histogram and get max, median and stdev values.
 """
+
+#
+# This script takes the preprocessed image data and extracts some features.
+# Input is a folder with image files.
+# Output is a CSV file with image features.
+# The features extracted here are indicator values from the histograms.
+#
+
 
 # general
 import os
@@ -22,22 +27,22 @@ import matplotlib.image as mpimg
 # same package
 from ZZ_HelperModules import docfile
 
+
 # ===============================
 # Parameters
 # ===============================
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "2VV-daten", "2VV-004")
-targetdatafile = join(workdir, "4FE-daten", "4FE-004.csv")
-documentationfile = join(workdir, "4FE-daten", "4FE-004.txt")
+sourcedatafolder = join(workdir, "2VV-daten", "2VV-002")
+targetdatafile = join(workdir, "4FE-daten", "4FE-010.csv")
+documentationfile = join(workdir, "4FE-daten", "4FE-010.txt")
 docstring = __doc__
 
 
 # ===============================
 # Functions
 # ===============================
-
 
 def get_metadata(file):
     filename, ext = os.path.basename(file).split(".")
@@ -96,5 +101,6 @@ def main(sourcedatafolder, targetdatafile, tail):
         allhist_max.append(hist_max)
     save_data(allhashes, allgenres, allhist_median, allhist_stdev, allhist_max, targetdatafile)
     docfile.write(sourcedatafolder, targetdatafile, documentationfile, docstring, tail, __file__)
+
 
 main(sourcedatafolder, targetdatafile, tail)

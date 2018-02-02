@@ -53,6 +53,7 @@ def mode(image, mode):
     Convert Image to another mode
     (see also: https://pillow.readthedocs.io/en/3.1.x/handbook/concepts.html#concept-modes)
     :param image: Sourcefile
+    :param mode: The mode to be used
     :return: Image object
     """
     if mode == "gray":
