@@ -1,13 +1,10 @@
-==1VV==
+==1VV-skripte==
 ***
-This script takes the raw album cover image data and prepares it for later analysis.
-Input is a folder with image files.
-Output is another folder with image files.
-Images are resized to 500 x 500 pixels.
+Resize images to 500 x 500 pixels AND convert to RGB color space.
 ***
-sourcedata = 0RD-001
+sourcedata = 0RD-004
 targetdata = 2VV-001
-script = 1VV-001.py
-size = 15 images
-comment = 3 genres, 5 example files each
-timestamp = 2018-01-13_01-22-26
+script = 1VV-005.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-02_13-56-17

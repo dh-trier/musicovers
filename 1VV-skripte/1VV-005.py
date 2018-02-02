@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-This script takes the raw album cover image data and prepares it for later analysis.
-Input is a folder with image files.
-Output is another folder with image files.
-Images are resized to 500 x 500 pixels AND converted to RGB color space.
+Resize images to 500 x 500 pixels AND convert to RGB color space.
 """
 
 import os
@@ -22,11 +19,11 @@ from ZZ_HelperModules import basic_image_functions as bif, docfile
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "0RD-daten", "0RD-003")
-targetdatafolder = join(workdir, "2VV-daten", "2VV-005")
-documentationfile = join(workdir, "2VV-daten", "2VV-005.txt")
+sourcedatafolder = join(workdir, "0RD-daten", "0RD-004")
+targetdatafolder = join(workdir, "2VV-daten", "2VV-001")
+documentationfile = join(workdir, "2VV-daten", "2VV-001.txt")
 docstring = __doc__
-color_space = "RGB"
+color_space = "RGB"  # RGB | CMYK (don't forget to change the docstring at the top of this script!)
 
 
 # ===============================

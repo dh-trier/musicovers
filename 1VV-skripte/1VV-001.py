@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-This script takes the raw album cover image data and prepares it for later analysis.
-Input is a folder with image files.
-Output is another folder with image files.
-Images are resized to 500 x 500 pixels.
+Resize images to 500 x 500 pixels.
 """
 
 import os
@@ -24,15 +21,11 @@ from ZZ_HelperModules import basic_image_functions as bif, docfile
 # workdir = "/media/christof/data/repos/dh-trier/musicovers"
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "0RD-daten", "0RD-001")
+sourcedatafolder = join(workdir, "0RD-daten", "0RD-004")
 targetdatafolder = join(workdir, "2VV-daten", "2VV-001")
 documentationfile = join(workdir, "2VV-daten", "2VV-001.txt")
 docstring = __doc__
 
-
-# ===============================
-# Functions
-# ===============================
 
 # ===============================
 # Main
