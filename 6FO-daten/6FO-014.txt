@@ -1,10 +1,14 @@
 ==facedetection==
 ***
 Z-Score transformation of detected faces using R-Script
+Input is a folder with image files. 
+Output is a csv-file listing number of detected faces, genre, hashes, filenames and z-transformed faces. 
 ***
-sourcedata = 2VV-002 // 0RD-003
+Resize images to 500 x 500 pixels AND convert to greyscale.
+***
+sourcedata = 2VV-002 // 2VV-001
 targetdata = 6FO-014.csv // 2VV-002
 script = zscore.R // facedetection.py // 1VV-007.py 
-size = 6479 images
-comment = 
+size = 6,479 images
+comment = full dataset
 timestamp = 2018-02-03_09-44-00
