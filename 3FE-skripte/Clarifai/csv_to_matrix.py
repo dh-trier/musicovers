@@ -33,7 +33,7 @@ def load_data(sourcedatafile):
 	Load the CSV file as a pandas DataFrame.
 	"""
 	with open(sourcedatafile, "r") as infile:
-		data = pd.read_csv(infile, sep="\t")
+		data = pd.read_csv(infile, sep=",")
 		return data
 
 
