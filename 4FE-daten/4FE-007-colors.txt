@@ -3,8 +3,8 @@
 This script takes the preprocessed image data and extracts some features.
 Input is a folder with image files. The images are colored.
 Output is a CSV file with image features.
-The features extracted here are indicator values from the histograms for every channel of HSV color space, using 36 out of 180 possible bins for Hue channel .
-Extracted using OpenCV.
+The features extracted here are indicator values from the histograms for every channel of BGR color space.
+Color features are being extracted using OpenCV
 ***
 This script takes the raw album cover image data and prepares it for later analysis.
 Input is a folder with image files.
@@ -12,8 +12,8 @@ Output is another folder with image files.
 Images are resized to 500 x 500 pixels AND converted to RGB color space.
 ***
 sourcedata = 2VV-005 // 0RD-003
-targetdata = 4FE-008-colors.csv // 2VV-005
-script = 3FE-008-colors.py // 1VV-005.py
+targetdata = 4FE-007-colors.csv // 2VV-005
+script = 3FE-006-colors.py // 1VV-005.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-02-05_22-02-06
+timestamp = 2018-02-05_18-27-42

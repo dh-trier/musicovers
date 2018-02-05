@@ -23,8 +23,7 @@ import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 
 # same package
-# from ZZ_HelperModules 
-import docfile
+from ZZ_HelperModules import docfile
 
 # ===============================
 # Parameters
@@ -59,6 +58,13 @@ def load_image(file):
     #cv2.destroyAllWindows() # mit "q" schließen!
     return image
 
+def get_channels(image):
+    '''input is cv2-generated image, numpy ndarray... '''
+    hue = [pixel[0] for column in image for pixel in column]
+    satur = [pixel[1] for column in image for pixel in column]
+    val = [pixel[2] for column in image for pixel in column]
+    return hue, satur, val
+
 
 def make_histogram(image, channel, bins, values):
     """
@@ -70,11 +76,16 @@ def make_histogram(image, channel, bins, values):
     histogram = cv2.calcHist([image], [channel], None, [bins], values)
     return histogram
 
+def get_channel_data(channel):
+    median = np.median(channel)
+    stdev = np.std(channel)
+    return median, stdev
 
-def get_histogramdata(histogram):
+
+def get_hmax(histogram):
     #print(histogram)
-    hmed = np.median(histogram)
-    hstd = np.std(histogram)
+    # hmed = np.median(histogram)
+    # hstd = np.std(histogram)
     hmax1 = np.argmax(histogram)
     print(hmax1)
     histogram[hmax1] = 0
@@ -84,12 +95,10 @@ def get_histogramdata(histogram):
     hmax3 = np.argmax(histogram)
     print(hmax3)
     histogram[hmax3] = 0
-    return hmax1, hmax2, hmax3, hmed, hstd
+    return hmax1, hmax2, hmax3 #, hmed, hstd
 
 
-def get_sdata(histogram): 
-    smed = np.median(histogram)
-    sstd = np.std(histogram)
+def get_smax(histogram): 
     smax1 = np.argmax(histogram)
     print(smax1)
     histogram[smax1] = 0
@@ -97,12 +106,10 @@ def get_sdata(histogram):
     print(smax2)
     histogram[smax2] = 0
     smax3 = np.argmax(histogram)
-    return smax1, smax2, smax3, smed, sstd
+    return smax1, smax2, smax3
 
 
-def get_vdata(histogram):
-    vmed = np.median(histogram)
-    vstd = np.std(histogram)
+def get_vmax(histogram):
     vmax1 = np.argmax(histogram)
     print(vmax1)
     histogram[vmax1] = 0
@@ -110,10 +117,10 @@ def get_vdata(histogram):
     print(vmax2)
     histogram[vmax2] = 0
     vmax3 = np.argmax(histogram)
-    return vmax1, vmax2, vmax3, vmed, vstd
+    return vmax1, vmax2, vmax3
 
 
-def save_data(allfilenames, allhmed, allhstd, allhmax1, allhmax2, allhmax3, allsmax1, allsmax2, allsmax3, allsmed, allsstd, allvmax1, allvmax2, allvmax3, allvmed, allvstd, targetdatafile):
+def save_data(allfilenames, allhmax1, allhmax2, allhmax3, allsmax1, allsmax2, allsmax3, allsmed, allsstd, allvmax1, allvmax2, allvmax3, allvmed, allvstd, targetdatafile):
     data = pd.DataFrame({
         "file" : allfilenames,
         "hmax1" : allhmax1,
@@ -144,8 +151,8 @@ def save_data(allfilenames, allhmed, allhstd, allhmax1, allhmax2, allhmax3, alls
 
 def main(sourcedatafolder, targetdatafile, tail):
     allfilenames = []
-    allhmed = []
-    allhstd = []
+    # allhmed = []
+    # allhstd = []
     allhmax1 = []
     allhmax2 = []
     allhmax3 = []
@@ -169,9 +176,10 @@ def main(sourcedatafolder, targetdatafile, tail):
         #plt.plot(histogram)
         #plt.show()
         #print(histogram)
-        hmax1, hmax2, hmax3, hmed, hstd = get_histogramdata(histogram)
-        allhmed.append(hmed)
-        allhstd.append(hstd)
+        hue, sat, val = get_channels(image)
+        hmax1, hmax2, hmax3 = get_hmax(histogram)
+        # allhmed.append(hmed)
+        # allhstd.append(hstd)
         allhmax1.append(hmax1*10)
         allhmax2.append(hmax2*10)
         allhmax3.append(hmax3*10)
@@ -180,8 +188,9 @@ def main(sourcedatafolder, targetdatafile, tail):
         #print(histogram)
         #plt.plot(histogram)
         #plt.show()
-        smax1, smax2, smax3, smed, sstd = get_sdata(histogram)
+        smax1, smax2, smax3 = get_smax(histogram)
         print(smax1, smax2, smax3)
+        smed, sstd = get_channel_data(sat)
         allsmax1.append(smax1*10)
         allsmax2.append(smax2*10)
         allsmax3.append(smax3*10)
@@ -191,14 +200,15 @@ def main(sourcedatafolder, targetdatafile, tail):
         histogram = make_histogram(image, 2, 10, [0,256])
         #plt.plot(histogram)
         #plt.show()
-        vmax1, vmax2, vmax3, vmed, vstd = get_vdata(histogram)
+        vmax1, vmax2, vmax3 = get_vmax(histogram)
+        vmed, vstd = get_channel_data(val)
         print(vmax1, vmax2, vmax3)
         allvmax1.append(vmax1*10)
         allvmax2.append(vmax2*10)
         allvmax3.append(vmax3*10)
         allvmed.append(vmed)
         allvstd.append(vstd)
-    save_data(allfilenames, allhmed, allhstd, allhmax1, allhmax2, allhmax3, allsmax1, allsmax2, allsmax3, allsmed, allsstd, allvmax1, allvmax2, allvmax3, allvmed, allvstd, targetdatafile)
+    save_data(allfilenames, allhmax1, allhmax2, allhmax3, allsmax1, allsmax2, allsmax3, allsmed, allsstd, allvmax1, allvmax2, allvmax3, allvmed, allvstd, targetdatafile)
     docfile.write(sourcedatafolder, targetdatafile, documentationfile, docstring, tail, __file__)
 
 

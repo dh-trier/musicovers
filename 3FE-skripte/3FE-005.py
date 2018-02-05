@@ -22,7 +22,7 @@ from os.path import join
 import os.path
 
 # specific
-import matplotlib.image as mpimg
+import cv2
 
 # same package
 from ZZ_HelperModules import docfile
@@ -34,7 +34,7 @@ from ZZ_HelperModules import docfile
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "2VV-daten", "2VV-002")  # folder with grayscale images
+sourcedatafolder = join(workdir, "2VV-daten", "2VV-007")  # folder with grayscale images
 targetdatafile = join(workdir, "4FE-daten", "4FE-010.csv")
 documentationfile = join(workdir, "4FE-daten", "4FE-010.txt")
 docstring = __doc__
@@ -50,32 +50,30 @@ def get_metadata(file):
     return filehash, genre
 
 
-def load_image(file):
-    image = mpimg.imread(file)
+def load_image(file):   
+    image = cv2.imread(file)
+    # print(image.shape)
     return image
 
+def get_channel(image):
+    '''input is cv2-generated image, numpy ndarray... '''
+    grey = [pixel for column in image for pixel in column]
+    return grey
 
-def get_data(image):
-    """
-    Calculate maximum, median and stdev for a given image.
-    :param file: Input image
-    :return: median, stdev, maximum
-    """
-    # TODO: This function is very slow, there's certainly a much faster implementation possible.
-    # TODO (cont.): (maybe by using numpy array indexing or sth. similar?)
-    # Convert image to list of values
-    value_list = []
-    for row in range(len(image)):
-        for column in range(len(image)):
-            value_list.append(image[row, column])
+def get_channel_data(channel):
+    median = np.median(channel)
+    stdev = np.std(channel)
+    return median, stdev
 
-    # extract data from list
-    maximum = max(value_list)
-    median = np.median(value_list)
-    stdev = np.std(value_list)
+def make_histogram(image):
+    hist= cv2.calcHist([image],[0],None,[256],[0,256])
+    return hist
 
-    return median, stdev, maximum
 
+def get_histogramdata(histogram):
+    hist_max = np.argmax(histogram)
+    return hist_max
+    
 
 def save_data(allhashes, allgenres, all_median, all_stdev, all_max, targetdatafile):
     data = pd.DataFrame({
@@ -106,7 +104,10 @@ def main(sourcedatafolder, targetdatafile, tail):
         allhashes.append(filehash)
         allgenres.append(genre)
         image = load_image(file)
-        gray_median, gray_stdev, gray_max = get_data(image)
+        gray_channel = get_channel(image)
+        gray_hist = make_histogram(image)
+        gray_median, gray_stdev = get_channel_data(gray_channel)
+        gray_max = get_histogramdata(gray_hist)
         all_median.append(gray_median)
         all_stdev.append(gray_stdev)
         all_max.append(gray_max)

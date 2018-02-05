@@ -2,11 +2,14 @@
 ***
 Get grayscale max, median and stdev values directly from image.
 ***
-Resize images to 500 x 500 pixels AND convert to greyscale.
+This script takes the raw album cover image data and prepares it for later analysis.
+Input is a folder with image files.
+Output is another folder with image files.
+Images are resized to 500 x 500 pixels AND converted to greyscale.
 ***
-sourcedata = 2VV-002 // 2VV-001
-targetdata = 4FE-010.csv // 2VV-002
+sourcedata = 2VV-007 // 0RD-003
+targetdata = 4FE-010.csv // 2VV-007
 script = 3FE-005.py // 1VV-007.py
-size = 6,479 images
-comment = full dataset
-timestamp = 2018-02-03_10-30-32
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-02-05_18-31-48

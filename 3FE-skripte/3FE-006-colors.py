@@ -19,10 +19,8 @@ import os.path
 import cv2
 
 # specific
-import matplotlib.image as mpimg
 
 # same package
-# import docfile
 from ZZ_HelperModules import docfile
 
 # ===============================
@@ -50,7 +48,20 @@ def get_metadata(file):
 
 def load_image(file):   
     image = cv2.imread(file)
+    # print(image.shape)
     return image
+
+def get_channels(image):
+    '''input is cv2-generated image, numpy ndarray... '''
+    blue = [pixel[0] for column in image for pixel in column]
+    green = [pixel[1] for column in image for pixel in column]
+    red = [pixel[2] for column in image for pixel in column]
+    return blue, green, red
+
+def get_channel_data(channel):
+    median = np.median(channel)
+    stdev = np.std(channel)
+    return median, stdev
 
 
 def make_histograms(image):
@@ -61,22 +72,22 @@ def make_histograms(image):
 
 
 def get_histogramdata(histogram):
-    hist_max = np.argmax(histogram[0])
-    hist_median = np.median(histogram[0])
-    hist_stdev = np.std(histogram[0])
-    return hist_median, hist_stdev, hist_max
+    hist_max = np.argmax(histogram)
+    # hist_median = np.median(histogram[0])
+    # hist_stdev = np.std(histogram[0])
+    return hist_max # hist_median, hist_stdev, # changed order of arguments!
     
 
-def save_data(allhashes, allgenres, allhist_median_blue, allhist_median_green, allhist_median_red, allhist_stdev_blue, allhist_stdev_green, allhist_stdev_red, allhist_max_blue, allhist_max_green, allhist_max_red, targetdatafile):
+def save_data(allhashes, allgenres, all_median_blue, all_median_green, all_median_red, all_stdev_blue, all_stdev_green, all_stdev_red, allhist_max_blue, allhist_max_green, allhist_max_red, targetdatafile):
     data = pd.DataFrame({
         "hash" : allhashes,
         "genre" : allgenres,
-        "histmed_b" : allhist_median_blue,
-        "histmed_g" : allhist_median_green,
-        "histmed_r" : allhist_median_red,
-        "histstd_b" : allhist_stdev_blue,
-        "histstd_g" : allhist_stdev_green,
-        "histstd_r" : allhist_stdev_red,
+        "med_b" : all_median_blue,
+        "med_g" : all_median_green,
+        "med_r" : all_median_red,
+        "std_b" : all_stdev_blue,
+        "std_g" : all_stdev_green,
+        "std_r" : all_stdev_red,
         "histmax_b" : allhist_max_blue,
         "histmax_g" : allhist_max_green,
         "histmax_r" : allhist_max_red,
@@ -92,12 +103,12 @@ def save_data(allhashes, allgenres, allhist_median_blue, allhist_median_green, a
 def main(sourcedatafolder, targetdatafile, tail):
     allhashes = []
     allgenres = []
-    allhist_median_blue = []
-    allhist_median_green = []
-    allhist_median_red = []
-    allhist_stdev_blue = []
-    allhist_stdev_green = []
-    allhist_stdev_red = []
+    all_median_blue = []
+    all_median_green = []
+    all_median_red = []
+    all_stdev_blue = []
+    all_stdev_green = []
+    all_stdev_red = []
     allhist_max_blue = []
     allhist_max_green = []
     allhist_max_red = []
@@ -106,21 +117,32 @@ def main(sourcedatafolder, targetdatafile, tail):
         allhashes.append(filehash)
         allgenres.append(genre)
         image = load_image(file)
-        blue, green, red = make_histograms(image)
-        hist_median_blue, hist_stdev_blue, hist_max_blue = get_histogramdata(blue)
-        hist_median_green, hist_stdev_green, hist_max_green = get_histogramdata(green)
-        hist_median_red, hist_stdev_red, hist_max_red = get_histogramdata(red)
-        allhist_median_blue.append(hist_median_blue)
-        allhist_median_green.append(hist_median_green)
-        allhist_median_red.append(hist_median_red)
-        allhist_stdev_blue.append(hist_stdev_blue)
-        allhist_stdev_green.append(hist_stdev_green)
-        allhist_stdev_red.append(hist_stdev_red)
+
+        h_blue, h_green, h_red = make_histograms(image)
+
+        hist_max_blue = get_histogramdata(h_blue)
+        hist_max_green = get_histogramdata(h_green)
+        hist_max_red = get_histogramdata(h_red)
+
+        blue, green, red = get_channels(image)
+        median_blue, stdev_blue = get_channel_data(blue)
+        median_green, stdev_green = get_channel_data(green)
+        median_red, stdev_red = get_channel_data(red)
+
+        all_median_blue.append(median_blue)
+        all_median_green.append(median_green)
+        all_median_red.append(median_red)
+        all_stdev_blue.append(stdev_blue)
+        all_stdev_green.append(stdev_green)
+        all_stdev_red.append(stdev_red)
         allhist_max_blue.append(hist_max_blue)
         allhist_max_green.append(hist_max_green)
         allhist_max_red.append(hist_max_red)
-    save_data(allhashes, allgenres, allhist_median_blue, allhist_median_green, allhist_median_red, allhist_stdev_blue, allhist_stdev_green, allhist_stdev_red, allhist_max_blue, allhist_max_green, allhist_max_red, targetdatafile)
+    save_data(allhashes, allgenres, all_median_blue, all_median_green, all_median_red, all_stdev_blue, all_stdev_green, all_stdev_red, allhist_max_blue, allhist_max_green, allhist_max_red, targetdatafile)
     docfile.write(sourcedatafolder, targetdatafile, documentationfile, docstring, tail, __file__)
+    print(all_median_blue[0])
+    print(all_stdev_blue[0])
+    print(allhist_max_blue[0])
 
 if __name__ == '__main__':
     main(sourcedatafolder, targetdatafile, tail)

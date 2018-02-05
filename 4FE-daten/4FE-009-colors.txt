@@ -16,4 +16,4 @@ targetdata = 4FE-009-colors.csv // 2VV-005
 script = 3FE-009-colors.py // 1VV-005.py
 size = 500 images
 comment = 5 genres, 100 example files each, randomly chosen
-timestamp = 2018-01-30_15-54-48
+timestamp = 2018-02-05_21-58-49
