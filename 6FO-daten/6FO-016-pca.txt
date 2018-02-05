@@ -1,0 +1,14 @@
+==5FO-skripte==
+***
+Perform PCA (Principal Component Analysis).
+***
+Get objects with ClarifAI.
+***
+Resize images to 500 x 500 pixels AND convert to RGB color space.
+***
+sourcedata = file_object_matrix.csv // 2VV-001 // 0RD-004
+targetdata = 6FO-016-pca.csv // file_object_matrix.csv // 2VV-001
+script = perform_pca.py // clar.py // 1VV-005.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-05_17-53-47
