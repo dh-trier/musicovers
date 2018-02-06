@@ -1,0 +1,17 @@
+==ZZ_HelperModules==
+***
+Merge two CSV files.
+ (6FO-014.csv with 6FO-016-pca.csv => faces_objects.csv)
+***
+Z-Score transformation of detected faces using R-Script
+Input is a folder with image files. 
+Output is a csv-file listing number of detected faces, genre, hashes, filenames and z-transformed faces. 
+***
+Resize images to 500 x 500 pixels AND convert to greyscale.
+***
+sourcedata = 6FO-014.csv // 2VV-002 // 2VV-001
+targetdata = faces_objects.csv // 6FO-014.csv // 2VV-002
+script = mergeCSV.py // zscore.R // facedetection.py // 1VV-007.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-06_14-55-38

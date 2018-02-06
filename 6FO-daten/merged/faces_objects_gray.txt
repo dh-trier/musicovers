@@ -1,0 +1,17 @@
+==ZZ_HelperModules==
+***
+Merge two CSV files.
+ (6FO-015.csv with faces_objects.csv => faces_objects_gray.csv)
+***
+Apply z-score transformation.
+***
+Get grayscale max (from histogram), median and stdev values (directly from image).
+***
+Resize images to 500 x 500 pixels AND convert to greyscale.
+***
+sourcedata = 6FO-015.csv // 4FE-010.csv // 2VV-002 // 2VV-001
+targetdata = faces_objects_gray.csv // 6FO-015.csv // 4FE-010.csv // 2VV-002
+script = mergeCSV.py // 5FO-004.py // 3FE-005.py // 1VV-007.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-06_17-28-41
