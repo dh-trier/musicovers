@@ -8,7 +8,7 @@ Apply z-score transformation.
 #
 # This script takes raw extracted features as input.
 # Input is one or several CSV file(s) with image features.
-# Output is one CSV file with merged and optionally normalized features.
+# Output is a CSV file with merged and optionally normalized features.
 # Apply a z-score transformation to each histogram value.
 #
 

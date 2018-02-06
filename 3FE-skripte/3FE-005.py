@@ -61,7 +61,6 @@ def get_channel(image):
     input is cv2-generated image, numpy ndarray ...
     """
     grey = [pixel for column in image for pixel in column]
-    # print(grey)
     return grey
 
 
