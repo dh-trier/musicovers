@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Get grayscale max, median and stdev values directly from image.
+Get grayscale max (from histogram), median and stdev values (directly from image).
 """
 
 #
@@ -34,7 +34,7 @@ from ZZ_HelperModules import docfile
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 workdir, tail = os.path.split(current_dir)
-sourcedatafolder = join(workdir, "2VV-daten", "2VV-007")  # folder with grayscale images
+sourcedatafolder = join(workdir, "2VV-daten", "2VV-002")  # folder with grayscale images
 targetdatafile = join(workdir, "4FE-daten", "4FE-010.csv")
 documentationfile = join(workdir, "4FE-daten", "4FE-010.txt")
 docstring = __doc__
@@ -55,18 +55,24 @@ def load_image(file):
     # print(image.shape)
     return image
 
+
 def get_channel(image):
-    '''input is cv2-generated image, numpy ndarray... '''
+    """
+    input is cv2-generated image, numpy ndarray ...
+    """
     grey = [pixel for column in image for pixel in column]
+    # print(grey)
     return grey
+
 
 def get_channel_data(channel):
     median = np.median(channel)
     stdev = np.std(channel)
     return median, stdev
 
+
 def make_histogram(image):
-    hist= cv2.calcHist([image],[0],None,[256],[0,256])
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
     return hist
 
 
@@ -111,7 +117,7 @@ def main(sourcedatafolder, targetdatafile, tail):
         all_median.append(gray_median)
         all_stdev.append(gray_stdev)
         all_max.append(gray_max)
-        if count % 200 == 0:
+        if count % 100 == 0:
             print(str(count))
     save_data(allhashes, allgenres, all_median, all_stdev, all_max, targetdatafile)
     docfile.write(sourcedatafolder, targetdatafile, documentationfile, docstring, tail, __file__)

@@ -2,7 +2,7 @@
 ***
 Apply z-score transformation.
 ***
-Get grayscale max, median and stdev values directly from image.
+Get grayscale max (from histogram), median and stdev values (directly from image).
 ***
 Resize images to 500 x 500 pixels AND convert to greyscale.
 ***
@@ -11,4 +11,4 @@ targetdata = 6FO-015.csv // 4FE-010.csv // 2VV-002
 script = 5FO-004.py // 3FE-005.py // 1VV-007.py
 size = 6,479 images
 comment = full dataset
-timestamp = 2018-02-03_10-57-34
+timestamp = 2018-02-06_17-16-36
