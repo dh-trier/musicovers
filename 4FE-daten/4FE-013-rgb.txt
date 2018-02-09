@@ -1,0 +1,16 @@
+==3FE-skripte==
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files. The images are colored.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms for every channel of BGR color space.
+Color features are being extracted using OpenCV
+***
+Resize images to 500 x 500 pixels AND convert to RGB color space.
+***
+sourcedata = 2VV-001 // 0RD-004
+targetdata = 4FE-013-colors.csv // 2VV-001
+script = 3FE-006-colors.py // 1VV-005.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-07_00-30-27
