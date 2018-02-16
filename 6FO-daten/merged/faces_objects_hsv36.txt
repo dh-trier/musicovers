@@ -1,0 +1,21 @@
+==ZZ_HelperModules==
+***
+Merge two CSV files.
+ (6FO-018-hsv-36bins.csv with faces_objects.csv => faces_objects_hsv36.csv)
+***
+Perform z-Score-Transformation on every channel of HSV color space 
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files. The images are colored.
+Output is a CSV file with image features.
+The features extracted here are indicator values from the histograms for every channel of HSV color space, using 36 out of 180 possible bins for Hue channel .
+Extracted using OpenCV.
+***
+Resize images to 500 x 500 pixels AND convert to RGB color space.
+***
+sourcedata = 6FO-018-hsv-36bins.csv // 4FE-014-hsv-36bins.csv // 2VV-001 // 0RD-004
+targetdata = faces_objects_hsv36.csv // 6FO-018-hsv-36bins.csv // 2VV-001
+script = mergeCSV.py // zscores.R // 3FE-008-colors.py // 1VV-005.py
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-02-16_16-42-51
