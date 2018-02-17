@@ -32,28 +32,50 @@ class Radiobar(Frame):
         return map((lambda var: var.get()), self.vars)
 
 
+class Message:
+    def __init__(self):
+        v.set("Score: ...")
+
+    def set(self, text):
+        v.set("Score: " + text)
+
+
 if __name__ == '__main__':
     root = Tk(className="bliblablub")
-    root.geometry("500x300")
+    root.geometry("700x500-100+100")
 
     frame = Frame(root, relief=RAISED, borderwidth=1)
 
-    lbl_ft = Label(frame, text="Select the features", font=('Verdana', 16))
+    lbl_ft = Label(frame, text="Select the features\n(Selecting 'Faces' as the only feature will throw an error)", font=('Verdana', 14))
     lbl_ft.pack(side=TOP, pady=20)
     ft = Checkbar(frame, ['Faces', 'Objects', 'RGB', 'HSV', 'Gray'])
     ft.config(relief=FLAT, bd=2)
     ft.pack(side=TOP)
 
-    lbl_alg = Label(frame, text="Choose an Algorithm", font=('Verdana', 16))
+    lbl_alg = Label(frame, text="Choose an Algorithm", font=('Verdana', 14))
     lbl_alg.pack(side=TOP, pady=20)
-    alg = Radiobar(frame, ['kNN', 'SVM', 'C4.5'])
+    alg = Radiobar(frame, ['kNN', 'SVM', 'C4.5 (Decision Tree)'])
     alg.config(relief=FLAT, bd=2)
     alg.pack(side=TOP)
+
+    frame1 = Frame(frame, relief=SOLID, borderwidth=1)
+    lbl_n = Label(frame1, text="if kNN: How many Neighbours? ", font=('Verdana', 14))
+    lbl_n.pack(side=LEFT, pady=20)
+    neighbours = Entry(frame1, font=('Verdana', 14))
+    neighbours.pack(side=RIGHT)
+    frame1.pack(side=TOP)
+
+    frame2 = Frame(frame, relief=SOLID, borderwidth=1)
+    lbl_ts = Label(frame2, text="Size of test set? (max. 6500)" , font=('Verdana', 14))
+    lbl_ts.pack(side=LEFT, pady=20)
+    testset = Entry(frame2, font=('Verdana', 14))
+    testset.pack(side=RIGHT)
+    frame2.pack(side=TOP)
 
     frame.pack(fill=BOTH, expand=True)
 
 
-    def handle_selections():
+    def handle_selections(msg):
         feature_selections = list(ft.state())
         faces, objects, rgb, hsv, gray = False, False, False, False, False
         if feature_selections[0] == 1:
@@ -69,10 +91,29 @@ if __name__ == '__main__':
 
         algorithm = list(alg.state())[0]
 
-        createCSV.mkcsv(faces, objects, rgb, hsv, gray)
-        classify.main(algorithm)
+        neighbours_number = neighbours.get()
+        if neighbours_number is not '':
+            neighbours_number = int(neighbours.get())
+        else:
+            neighbours_number = None
 
-    start_button = Button(root, text='Start', command=handle_selections, width=35, bg='#A9A9A9', font=14)
+        testsize = testset.get()
+        if testsize is not '':
+            testsize = int(testset.get())
+        else:
+            testsize = None
+
+        createCSV.mkcsv(faces, objects, rgb, hsv, gray)
+        classify.main(algorithm, msg, neighbours_number, testsize)
+
+
+    v = StringVar()
+    msg = Message()
+
+    message = Label(frame, textvariable=v, font=('Verdana', 14, 'italic'))
+    message.pack(side=TOP)
+
+    start_button = Button(root, text='Start', command=lambda: handle_selections(msg), width=35, bg='#A9A9A9', font=14)
     start_button.pack(side=BOTTOM)
 
     root.mainloop()
