@@ -58,6 +58,7 @@ def normalize_data(data):
 
 def save_data(data, targetdatafile):
     with open(targetdatafile, "w") as outfile:
+        data = data.drop(['Unnamed: 0'], 1)
         data.to_csv(outfile, sep=",")
 
 

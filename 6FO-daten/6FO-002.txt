@@ -13,11 +13,11 @@ The features extracted here are indicator values from the histograms.
 This script takes the raw album cover image data and prepares it for later analysis.
 Input is a folder with image files.
 Output is another folder with image files.
-Operations are resize to 500x500 pixels and greyscale transformation.
+Images are resized to 500 x 500 pixels AND converted to greyscale.
 ***
-sourcedata = 4FE-003.csv // 2VV-003 // 0RD-002
-targetdata = 6FO-002.csv // 4FE-003.csv // 2VV-003
-script = 5FO-002.py // 3FE-003.py // 1VV-003.py
-size = 300 images
-comment = 3 genres, 100 example files each
-timestamp = 2018-01-15_23-32-59
+sourcedata = 4FE-003.csv // 2VV-007 // 0RD-003
+targetdata = 6FO-002.csv // 4FE-003.csv // 2VV-007
+script = 5FO-002.py // 3FE-004.py // 1VV-007.py
+size = 500 images
+comment = 5 genres, 100 example files each, randomly chosen
+timestamp = 2018-02-18_15-51-03
