@@ -17,7 +17,7 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split
 
 # same package
-from ZZ_HelperModules.GUI.src import classifyHelp
+from ZZ_HelperModules.GUI.src import classifyHelp, buildConfusionMatrix
 
 # ===============================
 # Parameters
@@ -29,7 +29,7 @@ workdir, tail = os.path.split(current_dir)
 sourcedatafile = join(workdir, "chosen_features.csv")
 targetdatafile = join(workdir, "label_assignments.csv")
 docfile = join(workdir, "docfile.csv")
-documentation_data = ""
+documentation_string = ""
 
 
 # ===============================
@@ -43,8 +43,8 @@ def get_data(sourcedatafile):
     :return: data and genre list
     """
     # clear documentation for this classification cycle
-    global documentation_data
-    documentation_data = ""
+    global documentation_string
+    documentation_string = ""
 
     with open(sourcedatafile, "r") as infile:
         data = pd.read_csv(infile, sep=",", encoding="utf8", index_col=False)
@@ -78,12 +78,12 @@ def get_featurematrix(data):
             final_list.append(features[y])
 
     # add to documentation
-    global documentation_data
+    global documentation_string
     for feat in ['faces_zs', 'comp_1', 'max_b_zs', 'hmax1_zs', 'gray_max_zs']:
         if feat in features.keys():
-            documentation_data += '1,'
+            documentation_string += '1,'
         else:
-            documentation_data += '0,'
+            documentation_string += '0,'
 
     # create featurematrix
     featmatrix = classifyHelp.set_featurematrix_length(final_list)
@@ -100,17 +100,17 @@ def define_classifier(classifiertype, neighbours, kernel_name):
     :return: The classifier
     """
     # add to documentation
-    global documentation_data
+    global documentation_string
 
     if classifiertype == 0:
         classifier = neighbors.KNeighborsClassifier(n_neighbors=neighbours, weights="distance")
-        documentation_data += 'kNN,' + str(neighbours)
+        documentation_string += 'kNN,' + str(neighbours)
     if classifiertype == 1:
         classifier = svm.SVC(kernel=kernel_name)  # linear | poly | rbf
-        documentation_data += 'SVM,' + str(kernel_name)
+        documentation_string += 'SVM,' + str(kernel_name)
     if classifiertype == 2:
         classifier = tree.DecisionTreeClassifier()
-        documentation_data += 'Decision Tree,none'
+        documentation_string += 'Decision Tree,none'
     return classifier
 
 
@@ -125,8 +125,8 @@ def perform_classification(featurematrix, genres, classifier, testsize, msg):
     :return: Test set, test labels, predicted labels
     """
     # add to documentation
-    global documentation_data
-    documentation_data += ',' + str(testsize)
+    global documentation_string
+    documentation_string += ',' + str(testsize)
 
     # create different sets
     print("Create Train and Test set ...")
@@ -147,7 +147,7 @@ def perform_classification(featurematrix, genres, classifier, testsize, msg):
     scores = classifier.score(features_test, labels_test)
     msg.set("Score: " + str(round(scores, 4)))  # rounded to 4 digits after decimal point
     print("Score: " + str(scores))
-    documentation_data += ',' + str(round(scores, 4))
+    documentation_string += ',' + str(round(scores, 4))
 
     return features_test, labels_test, labels_predicted
 
@@ -174,21 +174,21 @@ def write_docfile():
     """
     Write main classification settings and results to a documentation file for later comparison.
     """
-    global documentation_data
+    global documentation_string
     if not os.path.exists(docfile):
         with open(docfile, "w", encoding='utf-8') as docu:
-            docu.write('faces,objects,RGB,HSV,grayscale,classifier,setting,testsize,score\n')
-            docu.write(documentation_data + '\n')
+            docu.write('faces,objects,RGB,HSV,grayscale,classifier,setting,testsize,score,confmatrix\n')
+            docu.write(documentation_string + ',none\n')
     else:
         with open(docfile, "a", encoding='utf-8') as docu:
-            docu.write(documentation_data + '\n')
+            docu.write(documentation_string + ',none\n')
 
 
 # ===============================
 # Main
 # ===============================
 
-def main(classifiertype, msg, neighbours=None, kernel_name=None, testsize=None, output_filename=None):
+def main(classifiertype, msg, neighbours=None, kernel_name=None, testsize=None, output_filename=None, confMatrix=True):
     # set default values
     if neighbours is None:
         neighbours = 3
@@ -209,4 +209,8 @@ def main(classifiertype, msg, neighbours=None, kernel_name=None, testsize=None, 
     classifier = define_classifier(classifiertype, neighbours, kernel_name)
     features_test, labels_test, labels_predicted = perform_classification(matrix, genres, classifier, testsize, msg)
     save_data(labels_test, labels_predicted, targetdatafile)
-    write_docfile()
+    if confMatrix:
+        global documentation_string
+        buildConfusionMatrix.main(documentation_string, docfile)
+    else:
+        write_docfile()

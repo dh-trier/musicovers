@@ -5,7 +5,7 @@ This module provides a GUI for testing different feature and algorithm combinati
 """
 
 from tkinter import *
-from ZZ_HelperModules.GUI.src import classifyHelp, classify
+from ZZ_HelperModules.GUI.src import classifyHelp, classify, buildConfusionMatrix
 
 
 # ========================
