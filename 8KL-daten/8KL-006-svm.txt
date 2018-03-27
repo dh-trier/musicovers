@@ -1,0 +1,28 @@
+==7KL-skripte==
+***
+This script classifies album cover images by musical genre.
+Here, this includes extracting the predicted labels for evaluation.
+Output is a CSV file with test labels and the labels predicted for them.
+Parameters:
+Features tested: faces, objects (PCA), rgb and grey values (z-score normalization)
+Size of test set: 100
+classifier used: svm
+***
+Merge all Feature Data
+***
+Perform z-Score-Transformation on every channel of BGR color space including max and median
+***
+This script takes the preprocessed image data and extracts some features.
+Input is a folder with image files. The images are colored.
+Output is a CSV file with image features.
+The features extracted here are indicator values from every feature extracted.
+Color features are being extracted using OpenCV
+***
+Resize images to 500 x 500 pixels AND convert to RGB color space.
+***
+sourcedata = all_features.csv // not specified
+targetdata = 8KL-006-svm.csv // not specified
+script = 7KL-006-svm.py // not specified
+size = 6,479 images
+comment = full dataset
+timestamp = 2018-03-26_19-46-05
